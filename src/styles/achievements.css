@@ -1,0 +1,194 @@
+/* ═══════════════════════════════════════════════════════
+   KNOWLEDGE HUB — K-HUB // Prestige Gold (#FFD700)
+   ═══════════════════════════════════════════════════════ */
+
+.hub-layout {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2xl);
+}
+
+.hub-section-title {
+  font-family: var(--font-heading);
+  font-size: var(--text-base);
+  font-weight: 600;
+  color: var(--starlight);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: var(--sp-lg);
+  display: flex;
+  align-items: center;
+  gap: var(--sp-sm);
+}
+
+.hub-section-title::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border-dim);
+  margin-left: var(--sp-md);
+}
+
+/* ─── Verification Grid ─── */
+.hub-cert-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: var(--sp-lg);
+}
+
+.hub-cert-card {
+  background: var(--void);
+  border: var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: var(--sp-lg);
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-sm);
+  transition: all var(--dur-base) var(--ease-smooth);
+  position: relative;
+  overflow: hidden;
+}
+
+.hub-cert-card:hover {
+  border-color: var(--kh-gold-dim);
+  transform: translateY(-4px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4), 0 0 20px var(--kh-gold-glow);
+}
+
+/* Gold shimmer effect */
+.hub-cert-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -150%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.06), transparent);
+  transition: left var(--dur-slow);
+}
+
+.hub-cert-card:hover::before {
+  left: 150%;
+}
+
+.hub-cert-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.hub-cert-icon-wrap {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: rgba(255, 215, 0, 0.05);
+  border: 1px solid var(--kh-gold-dim);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.6rem;
+  transition: transform var(--dur-fast);
+}
+
+.hub-cert-card:hover .hub-cert-icon-wrap {
+  transform: scale(1.1);
+  box-shadow: 0 0 16px var(--kh-gold-glow);
+}
+
+/* Verified Seal Badge */
+.hub-cert-verified {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-family: var(--font-mono);
+  font-size: 9px;
+  color: var(--kh-gold);
+  padding: 3px 8px;
+  border: 1px solid var(--kh-gold-dim);
+  border-radius: var(--radius-full);
+  background: var(--kh-gold-glow);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.hub-cert-verified-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--kh-gold);
+  animation: verifyPulse 2s infinite;
+}
+
+.hub-cert-name {
+  font-family: var(--font-heading);
+  font-size: var(--text-md);
+  font-weight: 600;
+  color: var(--starlight);
+  margin-top: var(--sp-xs);
+  letter-spacing: 0.02em;
+}
+
+.hub-cert-issuer {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--asteroid);
+}
+
+.hub-cert-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--asteroid-dim);
+  margin-top: auto;
+  padding-top: var(--sp-sm);
+  border-top: var(--border-dim);
+}
+
+/* ─── Visitor Achievements ─── */
+.hub-ach-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+  gap: var(--sp-md);
+}
+
+.hub-ach-card {
+  background: var(--glass-bg);
+  border: var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: var(--sp-md);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--sp-xs);
+  transition: all var(--dur-base);
+}
+
+.hub-ach-card.unlocked {
+  border-color: var(--kh-gold-dim);
+  box-shadow: 0 0 16px var(--kh-gold-glow);
+}
+
+.hub-ach-card.locked {
+  opacity: 0.35;
+}
+
+.hub-ach-icon {
+  font-size: 2rem;
+  margin-bottom: 2px;
+}
+
+.hub-ach-title {
+  font-family: var(--font-heading);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--starlight);
+}
+
+.hub-ach-desc {
+  font-size: 10px;
+  color: var(--asteroid);
+}

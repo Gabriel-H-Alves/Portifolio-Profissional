@@ -1,0 +1,139 @@
+/* ═══════════════════════════════════════════════════════
+   COMMAND PALETTE — Cmd+K // Universal HUD Terminal
+   ═══════════════════════════════════════════════════════ */
+
+.palette-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(4, 4, 10, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  z-index: var(--z-palette);
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: 18vh;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--dur-fast) var(--ease-smooth);
+}
+
+.palette-overlay.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.palette-box {
+  width: 100%;
+  max-width: 560px;
+  background: var(--void);
+  border: 1px solid var(--hq-cyan-dim);
+  border-radius: var(--radius-xl);
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.8), 0 0 35px var(--hq-cyan-glow);
+  overflow: hidden;
+  animation: modalIn var(--dur-base) var(--ease-out);
+}
+
+.palette-search-wrap {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-md);
+  padding: var(--sp-md) var(--sp-lg);
+  border-bottom: var(--border-dim);
+}
+
+.palette-icon-search {
+  font-size: 1.2rem;
+  color: var(--hq-cyan);
+}
+
+.palette-input-box {
+  flex: 1;
+  background: none;
+  border: none;
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  color: var(--starlight);
+  outline: none;
+}
+
+.palette-input-box::placeholder {
+  color: var(--asteroid-dim);
+}
+
+.palette-esc-badge {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--asteroid);
+  padding: 2px 7px;
+  border: var(--border-subtle);
+  border-radius: var(--radius-sm);
+}
+
+.palette-items-list {
+  max-height: 340px;
+  overflow-y: auto;
+  padding: var(--sp-sm);
+}
+
+.palette-group-tag {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--asteroid-dim);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: var(--sp-xs) var(--sp-md);
+  margin-top: 4px;
+}
+
+.palette-row-item {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-md);
+  padding: 10px var(--sp-md);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all var(--dur-fast);
+}
+
+.palette-row-item:hover,
+.palette-row-item.active-choice {
+  background: rgba(0, 229, 255, 0.08);
+}
+
+.palette-row-icon {
+  font-size: 1.1rem;
+  min-width: 26px;
+  text-align: center;
+  color: var(--asteroid);
+}
+
+.palette-row-item:hover .palette-row-icon,
+.palette-row-item.active-choice .palette-row-icon {
+  color: var(--hq-cyan);
+}
+
+.palette-row-label {
+  flex: 1;
+  font-family: var(--font-heading);
+  font-size: var(--text-sm);
+  color: var(--starlight);
+  letter-spacing: 0.04em;
+}
+
+.palette-row-key {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--asteroid-dim);
+}
+
+.palette-footer-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--sp-sm) var(--sp-lg);
+  border-top: var(--border-dim);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--asteroid-dim);
+}

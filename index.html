@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="NEXUS OS v3 — AI Career Command Center of Gabriel Henrique. AI Systems Architect, Full Stack, Robotics & Automation." />
+  <meta name="keywords" content="AI, Autonomous Systems, Robotics, Software Architecture, Portfolio, Career Command Center, Gabriel Henrique" />
+  <meta name="author" content="Gabriel Henrique" />
+  <meta name="theme-color" content="#04040A" />
+  <meta property="og:title" content="NEXUS OS — Personal AI Operating System" />
+  <meta property="og:description" content="Personal AI Career Command Center — Interactive systems, neural matrix, tactical mission log, and AI copilot." />
+  <meta property="og:type" content="website" />
+  <title>NEXUS OS // AI Career Command Center — Gabriel Henrique</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔮</text></svg>" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+</head>
+<body>
+
+  <!-- ═══ BOOT SEQUENCE ═══ -->
+  <div id="boot-screen">
+    <div class="boot-logo">
+      <span class="g" data-text="NEXUS OS v3.0">NEXUS OS v3.0</span>
+    </div>
+    <div class="boot-sub">// AI CAREER COMMAND CENTER // INITIALIZING SUBSYSTEMS</div>
+    
+    <div class="boot-lines" id="boot-lines"></div>
+    
+    <div class="boot-progress-wrap" id="boot-progress-wrap">
+      <div class="boot-progress-bar">
+        <div class="boot-progress-fill" id="boot-progress"></div>
+      </div>
+      <div class="boot-pct" id="boot-percent">0%</div>
+    </div>
+    
+    <button class="boot-enter" id="boot-enter">INITIALIZE COMMAND CENTER [PRESS ANY KEY]</button>
+  </div>
+
+  <!-- ═══ MAIN NAVIGATION ═══ -->
+  <nav id="main-nav">
+    <div class="nav-brand" data-navigate="hq">
+      <div class="nav-brand-icon">N</div>
+      <span class="nav-brand-name">NEXUS<span style="color:var(--starlight);opacity:0.4;">.OS</span></span>
+    </div>
+
+    <div class="nav-links" id="nav-links">
+      <button class="nav-link active" data-navigate="hq">
+        HQ
+        <span class="nav-dot"></span>
+      </button>
+      <button class="nav-link" data-navigate="identity">
+        ID Core
+        <span class="nav-dot"></span>
+      </button>
+      <button class="nav-link" data-navigate="matrix">
+        Tech Matrix
+        <span class="nav-dot"></span>
+      </button>
+      <button class="nav-link" data-navigate="missions">
+        Mission Log
+        <span class="nav-dot"></span>
+      </button>
+      <button class="nav-link" data-navigate="vault">
+        Project Vault
+        <span class="nav-dot"></span>
+      </button>
+      <button class="nav-link" data-navigate="knowledge">
+        Knowledge Hub
+        <span class="nav-dot"></span>
+      </button>
+    </div>
+
+    <div class="nav-right">
+      <div class="nav-ach" id="nav-achievements" data-navigate="knowledge" title="Visitor Authorization Badges">
+        🏆 <span id="ach-count">0</span>/9
+      </div>
+      <div class="nav-cmd" id="nav-palette-btn" title="Command Palette (Ctrl+K)">⌘K</div>
+      <button class="nav-mob" id="nav-mobile-toggle" aria-label="Toggle Menu">☰</button>
+    </div>
+  </nav>
+
+  <!-- ═══ MAIN CONTENT SYSTEM ═══ -->
+  <main id="app-content">
+
+    <!-- ─── 1. NEXUS HQ (Central Command) ─── -->
+    <section id="section-hq" class="section active" data-module="hq">
+      <canvas class="hq-canvas" id="particles-canvas"></canvas>
+
+      <div class="hq-hud hq-hud-tl">
+        <div class="hud-line">SYS.NODE: <span>SAO_PAULO_01</span></div>
+        <div class="hud-line">SYS.LAT: <span class="hud-val" id="hud-lat">-23.5505</span></div>
+        <div class="hud-line">SYS.LON: <span class="hud-val" id="hud-lon">-46.6333</span></div>
+        <div class="hud-line">SYS.CLEARANCE: <span>ALPHA // LEVEL 5</span></div>
+      </div>
+
+      <div class="hq-hud hq-hud-br">
+        <div class="hud-line">SYS.CLOCK: <span class="hud-val" id="hud-time">--:--:--</span></div>
+        <div class="hud-line">SYS.INTEGRITY: <span style="color:var(--success);">100% OPERATIONAL</span></div>
+      </div>
+
+      <div class="hq-hero">
+        <div class="hq-greeting">// WELCOME TO THE AI CAREER COMMAND CENTER</div>
+        <h1 class="hq-name">GABRIEL HENRIQUE</h1>
+        <div class="hq-title" id="hq-title-typewriter">
+          <span id="typewriter-text"></span><span class="cursor"></span>
+        </div>
+        <div class="hq-cta">
+          <button class="btn btn-primary" data-navigate="identity">
+            EXPLORE COMMAND CORE
+          </button>
+          <button class="btn btn-outline" id="btn-download-cv">
+            EXECUTIVE CV [PDF]
+          </button>
+        </div>
+      </div>
+
+      <!-- Quick Metrics -->
+      <div class="hq-stats">
+        <div class="stat">
+          <div class="stat-val" data-count="5">0</div>
+          <div class="stat-lbl">Years Experience</div>
+        </div>
+        <div class="stat">
+          <div class="stat-val" data-count="42">0</div>
+          <div class="stat-lbl">Projects Deployed</div>
+        </div>
+        <div class="stat">
+          <div class="stat-val" data-count="30" data-suffix="+">0</div>
+          <div class="stat-lbl">Technologies</div>
+        </div>
+        <div class="stat">
+          <div class="stat-val" data-count="12">0</div>
+          <div class="stat-lbl">Verified Certs</div>
+        </div>
+      </div>
+
+      <!-- Modules Nav Grid -->
+      <div class="hq-modules">
+        <div class="hq-mod" data-navigate="identity">
+          <div class="hq-mod-icon">
+            <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          </div>
+          <div class="hq-mod-label">Identity Core</div>
+          <div class="hq-mod-code">ID-CORE // DIGITAL TWIN</div>
+        </div>
+
+        <div class="hq-mod" data-navigate="matrix">
+          <div class="hq-mod-icon">
+            <svg viewBox="0 0 24 24"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+          </div>
+          <div class="hq-mod-label">Tech Matrix</div>
+          <div class="hq-mod-code">T-MTX // NEURAL GRAPH</div>
+        </div>
+
+        <div class="hq-mod" data-navigate="missions">
+          <div class="hq-mod-icon">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          </div>
+          <div class="hq-mod-label">Mission Log</div>
+          <div class="hq-mod-code">M-LOG // TACTICAL CAREER</div>
+        </div>
+
+        <div class="hq-mod" data-navigate="vault">
+          <div class="hq-mod-icon">
+            <svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          </div>
+          <div class="hq-mod-label">Project Vault</div>
+          <div class="hq-mod-code">P-VLT // DEPLOYED CASES</div>
+        </div>
+
+        <div class="hq-mod" data-navigate="knowledge">
+          <div class="hq-mod-icon">
+            <svg viewBox="0 0 24 24"><polygon points="12 15 8.5 17.5 9.5 13.5 6.5 10.5 10.5 10 12 6.5 13.5 10 17.5 10.5 14.5 13.5 15.5 17.5 12 15"/></svg>
+          </div>
+          <div class="hq-mod-label">Knowledge Hub</div>
+          <div class="hq-mod-code">K-HUB // VERIFIED CERTS</div>
+        </div>
+
+        <div class="hq-mod" id="hq-mod-ai-btn">
+          <div class="hq-mod-icon">
+            <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          </div>
+          <div class="hq-mod-label">NEXUS AI</div>
+          <div class="hq-mod-code">N-AI // COGNITIVE COPILOT</div>
+        </div>
+      </div>
+
+      <div class="hq-feed" id="status-feed"></div>
+    </section>
+
+    <!-- ─── 2. IDENTITY CORE (ID-CORE) ─── -->
+    <section id="section-identity" class="section" data-module="id-core">
+      <div class="container">
+        <div class="section-hdr">
+          <div class="section-hdr-icon">
+            <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          </div>
+          <div class="section-hdr-text">
+            <h2>IDENTITY CORE</h2>
+            <div class="section-code">// ID-CORE // DIGITAL TWIN & SYSTEM DOSSIER</div>
+          </div>
+        </div>
+
+        <div class="id-grid">
+          <!-- Holographic Avatar Scanner -->
+          <div class="id-avatar-zone">
+            <div class="id-scanner">
+              <div class="id-avatar-ring"></div>
+              <div class="id-scan-line"></div>
+              <div class="id-avatar" id="avatar-display">👨‍💻</div>
+              <div class="id-status-dot" title="Operational: Active"></div>
+            </div>
+
+            <div class="id-level">
+              <span>⚡</span>
+              <span class="id-level-txt">LEVEL 28 // SENIOR ARCHITECT</span>
+            </div>
+
+            <div class="id-xp">
+              <div class="id-xp-lbl">
+                <span>XP PROGRESSION</span>
+                <span>88 / 100</span>
+              </div>
+              <div class="id-xp-track">
+                <div class="id-xp-fill" id="identity-xp-fill"></div>
+              </div>
+            </div>
+
+            <div class="id-indicators" id="identity-indicators"></div>
+          </div>
+
+          <!-- Dossier & Pillars -->
+          <div>
+            <div class="id-terminal">
+              <div class="terminal-hdr">
+                <div class="terminal-dot r"></div>
+                <div class="terminal-dot y"></div>
+                <div class="terminal-dot g"></div>
+                <div class="terminal-path">dossier.sys // Identity Core Terminal</div>
+              </div>
+              <div class="id-terminal-body" id="bio-terminal"></div>
+            </div>
+
+            <div class="id-specs">
+              <h3>ENGINEERING PILLARS & SPECIALIZATIONS</h3>
+              <div class="id-specs-grid" id="identity-pillars"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── 3. TECH MATRIX (T-MTX) ─── -->
+    <section id="section-matrix" class="section" data-module="t-mtx">
+      <div class="container">
+        <div class="section-hdr">
+          <div class="section-hdr-icon">
+            <svg viewBox="0 0 24 24"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+          </div>
+          <div class="section-hdr-text">
+            <h2>TECH MATRIX</h2>
+            <div class="section-code">// T-MTX // NEURAL GRAPH & CAPABILITY NODES</div>
+          </div>
+          <div style="margin-left:auto;">
+            <div class="matrix-view-toggle">
+              <button class="matrix-toggle-btn active" data-view="neural">NEURAL GRAPH</button>
+              <button class="matrix-toggle-btn" data-view="grid">GRID VIEW</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="matrix-layout">
+          <!-- Neural Graph Canvas -->
+          <div class="neural-graph-container" id="matrix-neural-view">
+            <canvas class="neural-graph-canvas" id="neural-canvas"></canvas>
+            <div class="neural-graph-overlay">
+              <div class="badge badge-green">LIVE SYNAPSE GRAPH</div>
+              <div style="font-family:var(--font-mono); font-size:10px; color:var(--asteroid);">Interactive canvas — hover nodes to inspect synapses</div>
+            </div>
+          </div>
+
+          <!-- Grid Clusters View -->
+          <div id="matrix-grid-view" style="display:none;">
+            <div class="matrix-tabs" id="matrix-category-tabs"></div>
+            <div class="matrix-grid" id="matrix-nodes-grid"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── 4. MISSION LOG (M-LOG) ─── -->
+    <section id="section-missions" class="section" data-module="m-log">
+      <div class="container">
+        <div class="section-hdr">
+          <div class="section-hdr-icon">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          </div>
+          <div class="section-hdr-text">
+            <h2>MISSION LOG</h2>
+            <div class="section-code">// M-LOG // CHRONOLOGICAL TACTICAL RECORDS</div>
+          </div>
+        </div>
+
+        <div class="mission-layout">
+          <div class="mission-filters" id="mission-filters">
+            <button class="mission-filter-btn active" data-filter="all">ALL MISSIONS</button>
+            <button class="mission-filter-btn" data-filter="active">ACTIVE OPERATIONS</button>
+            <button class="mission-filter-btn" data-filter="completed">CONCLUDED</button>
+          </div>
+
+          <div class="mission-track" id="mission-timeline-track"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── 5. PROJECT VAULT (P-VLT) ─── -->
+    <section id="section-vault" class="section" data-module="p-vlt">
+      <div class="container">
+        <div class="section-hdr">
+          <div class="section-hdr-icon">
+            <svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          </div>
+          <div class="section-hdr-text">
+            <h2>PROJECT VAULT</h2>
+            <div class="section-code">// P-VLT // DEPLOYED SYSTEMS & ARCHITECTURES</div>
+          </div>
+        </div>
+
+        <div class="vault-layout">
+          <div class="vault-filters" id="vault-filters"></div>
+          <div class="vault-grid" id="vault-grid"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── 6. KNOWLEDGE HUB (K-HUB) ─── -->
+    <section id="section-knowledge" class="section" data-module="k-hub">
+      <div class="container">
+        <div class="section-hdr">
+          <div class="section-hdr-icon">
+            <svg viewBox="0 0 24 24"><polygon points="12 15 8.5 17.5 9.5 13.5 6.5 10.5 10.5 10 12 6.5 13.5 10 17.5 10.5 14.5 13.5 15.5 17.5 12 15"/></svg>
+          </div>
+          <div class="section-hdr-text">
+            <h2>KNOWLEDGE HUB</h2>
+            <div class="section-code">// K-HUB // VERIFIED CREDENTIALS & VISITOR BADGES</div>
+          </div>
+        </div>
+
+        <div class="hub-layout">
+          <div>
+            <div class="hub-section-title">🎓 Verified Professional Credentials</div>
+            <div class="hub-cert-grid" id="hub-certs-grid"></div>
+          </div>
+
+          <div style="margin-top:var(--sp-2xl);">
+            <div class="hub-section-title">🎮 Visitor Authorization Badges (Gamified)</div>
+            <div class="hub-ach-grid" id="hub-achievements-grid"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ═══ NEXUS AI FLOATING ASSISTANT ═══ -->
+  <button class="ai-float-toggle" id="ai-toggle" aria-label="Open NEXUS AI Copilot" title="NEXUS AI Copilot">
+    🤖
+  </button>
+
+  <div class="ai-chat-window" id="ai-chat-window">
+    <div class="ai-chat-header">
+      <div class="ai-avatar-core">🤖</div>
+      <div>
+        <div class="ai-header-title">NEXUS AI // COPILOT</div>
+        <div class="ai-header-status">● NEURAL CORE ONLINE</div>
+      </div>
+    </div>
+    
+    <div class="ai-messages-area" id="ai-messages"></div>
+    <div class="ai-prompts" id="ai-prompts"></div>
+
+    <div class="ai-input-form">
+      <input class="ai-input-field" id="ai-input" type="text" placeholder="Inquire about architecture, stack, projects..." />
+      <button class="ai-send-action" id="ai-send" aria-label="Send Inquiry">▶</button>
+    </div>
+  </div>
+
+  <!-- ═══ PROJECT VAULT DEEP INSPECTION MODAL ═══ -->
+  <div class="vault-modal-overlay" id="vault-modal-overlay">
+    <div class="vault-modal-container" id="vault-modal-container">
+      <button class="vault-modal-close" id="vault-modal-close" aria-label="Close Modal">✕</button>
+      <div class="vault-modal-content" id="vault-modal-content"></div>
+    </div>
+  </div>
+
+  <!-- ═══ COMMAND PALETTE HUD (Cmd+K) ═══ -->
+  <div class="palette-overlay" id="palette-overlay">
+    <div class="palette-box">
+      <div class="palette-search-wrap">
+        <span class="palette-icon-search">🔍</span>
+        <input class="palette-input-box" id="palette-input" type="text" placeholder="Type a command or jump to module..." />
+        <span class="palette-esc-badge">ESC</span>
+      </div>
+      <div class="palette-items-list" id="palette-results"></div>
+      <div class="palette-footer-bar">
+        <div><span style="border:1px solid var(--border-subtle); padding:1px 4px; border-radius:2px;">↑↓</span> Navigate &nbsp; <span style="border:1px solid var(--border-subtle); padding:1px 4px; border-radius:2px;">↵</span> Execute</div>
+        <div>NEXUS OS v3.0</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ TOAST NOTIFICATION STACK ═══ -->
+  <div id="toast-container"></div>
+
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>

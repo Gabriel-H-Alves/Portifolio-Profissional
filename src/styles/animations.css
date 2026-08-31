@@ -1,0 +1,60 @@
+/* ═══════════════════════════════════════════════════════
+   NEXUS OS v3 — Animations & Keyframes
+   ═══════════════════════════════════════════════════════ */
+
+/* ─── Boot ─── */
+@keyframes bootLine{from{opacity:0;transform:translateX(-10px)}to{opacity:1;transform:translateX(0)}}
+@keyframes progressFill{from{width:0}to{width:100%}}
+
+/* ─── Cursor ─── */
+@keyframes cursorBlink{0%,100%{opacity:1}50%{opacity:0}}
+
+/* ─── Glitch ─── */
+@keyframes glitch1{0%{clip-path:inset(20% 0 60% 0);transform:translate(-3px,0)}20%{clip-path:inset(60% 0 10% 0);transform:translate(3px,0)}40%{clip-path:inset(40% 0 30% 0);transform:translate(-2px,0)}60%{clip-path:inset(70% 0 5% 0);transform:translate(2px,0)}80%{clip-path:inset(10% 0 80% 0);transform:translate(-1px,0)}100%{clip-path:inset(50% 0 30% 0);transform:translate(0)}}
+@keyframes glitch2{0%{clip-path:inset(60% 0 20% 0);transform:translate(3px,0)}20%{clip-path:inset(10% 0 60% 0);transform:translate(-3px,0)}40%{clip-path:inset(30% 0 40% 0);transform:translate(2px,0)}60%{clip-path:inset(5% 0 70% 0);transform:translate(-2px,0)}80%{clip-path:inset(80% 0 10% 0);transform:translate(1px,0)}100%{clip-path:inset(30% 0 50% 0);transform:translate(0)}}
+
+/* ─── Glow & Pulse ─── */
+@keyframes glowPulse{0%,100%{box-shadow:0 0 5px var(--accent-glow)}50%{box-shadow:0 0 20px var(--accent-glow),0 0 40px var(--accent-glow)}}
+@keyframes statusPulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.4;transform:scale(1.8)}}
+@keyframes ringPulse{0%{transform:scale(1);opacity:0.6}100%{transform:scale(1.6);opacity:0}}
+@keyframes borderGlow{0%,100%{border-color:var(--accent-dim)}50%{border-color:var(--accent)}}
+
+/* ─── Scanner ─── */
+@keyframes scannerSweep{0%{top:-2px;opacity:0}10%{opacity:1}90%{opacity:1}100%{top:calc(100% - 2px);opacity:0}}
+@keyframes scanLine{0%{transform:translateY(-100%)}100%{transform:translateY(100vh)}}
+
+/* ─── Fade ─── */
+@keyframes fadeInUp{from{opacity:0;transform:translateY(24px);filter:blur(3px)}to{opacity:1;transform:translateY(0);filter:blur(0)}}
+@keyframes fadeInScale{from{opacity:0;transform:scale(0.92)}to{opacity:1;transform:scale(1)}}
+
+/* ─── Data ─── */
+@keyframes dataPulse{0%{opacity:0.3}50%{opacity:1}100%{opacity:0.3}}
+@keyframes neuralPulse{0%{stroke-opacity:0.2;stroke-width:1}50%{stroke-opacity:0.8;stroke-width:2}100%{stroke-opacity:0.2;stroke-width:1}}
+@keyframes circuitDraw{from{stroke-dashoffset:200}to{stroke-dashoffset:0}}
+
+/* ─── Radar ─── */
+@keyframes radarSweep{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+
+/* ─── Modal ─── */
+@keyframes modalIn{from{opacity:0;transform:scale(0.95) translateY(8px)}to{opacity:1;transform:scale(1) translateY(0)}}
+@keyframes backdropIn{from{opacity:0}to{opacity:1}}
+
+/* ─── Toast ─── */
+@keyframes toastIn{from{transform:translateX(120%);opacity:0}to{transform:translateX(0);opacity:1}}
+@keyframes toastOut{from{transform:translateX(0);opacity:1}to{transform:translateX(120%);opacity:0}}
+
+/* ─── Special ─── */
+@keyframes shimmer{0%{background-position:-200% 0}100%{background-position:200% 0}}
+@keyframes holographicShift{0%{filter:hue-rotate(0deg) brightness(1)}50%{filter:hue-rotate(15deg) brightness(1.1)}100%{filter:hue-rotate(0deg) brightness(1)}}
+@keyframes vaultUnlock{0%{clip-path:inset(50% 0 50% 0)}100%{clip-path:inset(0 0 0 0)}}
+@keyframes verifyPulse{0%{box-shadow:0 0 0 0 var(--kh-gold-dim)}70%{box-shadow:0 0 0 12px transparent}100%{box-shadow:0 0 0 0 transparent}}
+@keyframes matrixRain{0%{transform:translateY(-100%);opacity:1}100%{transform:translateY(100vh);opacity:0}}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+
+/* ─── Utility Classes ─── */
+.anim-fade-up{animation:fadeInUp 0.6s var(--ease-out) both;}
+.anim-fade-scale{animation:fadeInScale 0.5s var(--ease-out) both;}
+.anim-glow{animation:glowPulse 2.5s ease-in-out infinite;}
+.anim-float{animation:float 3s ease-in-out infinite;}
+.anim-pulse{animation:statusPulse 2s ease-in-out infinite;}
+.delay-1{animation-delay:.1s}.delay-2{animation-delay:.2s}.delay-3{animation-delay:.3s}.delay-4{animation-delay:.4s}.delay-5{animation-delay:.5s}.delay-6{animation-delay:.6s}

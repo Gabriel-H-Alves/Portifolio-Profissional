@@ -1,0 +1,235 @@
+/* ═══════════════════════════════════════════════════════
+   TECH MATRIX — T-MTX // Neural Green (#00FF88)
+   ═══════════════════════════════════════════════════════ */
+
+.matrix-layout {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2xl);
+}
+
+/* ─── Neural Graph View ─── */
+.neural-graph-container {
+  position: relative;
+  width: 100%;
+  height: 480px;
+  background: var(--void);
+  border: var(--glass-border);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+}
+
+.neural-graph-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.neural-graph-overlay {
+  position: absolute;
+  top: var(--sp-md);
+  left: var(--sp-md);
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.matrix-view-toggle {
+  display: flex;
+  gap: 2px;
+  background: var(--void);
+  border-radius: var(--radius-sm);
+  padding: 3px;
+  border: var(--border-subtle);
+  width: fit-content;
+}
+
+.matrix-toggle-btn {
+  padding: 6px 16px;
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--asteroid);
+  border-radius: var(--radius-sm);
+  transition: all var(--dur-fast);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.matrix-toggle-btn.active {
+  background: var(--tm-green-glow);
+  color: var(--tm-green);
+  border: 1px solid var(--tm-green-dim);
+}
+
+.matrix-toggle-btn:hover:not(.active) {
+  color: var(--starlight);
+}
+
+/* ─── Category Filter Tabs ─── */
+.matrix-tabs {
+  display: flex;
+  gap: var(--sp-xs);
+  flex-wrap: wrap;
+  margin-bottom: var(--sp-lg);
+}
+
+.matrix-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-xs);
+  padding: 6px 14px;
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--asteroid);
+  border: var(--border-subtle);
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  transition: all var(--dur-fast);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.matrix-tab:hover {
+  color: var(--starlight);
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+.matrix-tab.active {
+  color: var(--tm-green);
+  border-color: var(--tm-green-dim);
+  background: var(--tm-green-glow);
+}
+
+/* ─── Node Grid ─── */
+.matrix-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: var(--sp-md);
+}
+
+.matrix-node-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--sp-sm);
+  padding: var(--sp-lg) var(--sp-md);
+  border: var(--glass-border);
+  border-radius: var(--radius-lg);
+  background: var(--glass-bg);
+  transition: all var(--dur-base) var(--ease-smooth);
+  cursor: pointer;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.matrix-node-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: var(--tm-green);
+  opacity: 0;
+  transition: opacity var(--dur-fast);
+}
+
+.matrix-node-card:hover {
+  border-color: var(--tm-green-dim);
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px var(--tm-green-glow);
+}
+
+.matrix-node-card:hover::before {
+  opacity: 1;
+}
+
+.matrix-node-icon {
+  width: 42px;
+  height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-md);
+  background: rgba(0, 255, 136, 0.05);
+  border: 1px solid var(--tm-green-dim);
+  font-size: 1.4rem;
+  color: var(--tm-green);
+  transition: all var(--dur-base);
+}
+
+.matrix-node-card:hover .matrix-node-icon {
+  box-shadow: 0 0 16px var(--tm-green-glow);
+  transform: scale(1.08);
+}
+
+.matrix-node-name {
+  font-family: var(--font-heading);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--starlight);
+  letter-spacing: 0.04em;
+}
+
+.matrix-node-tier {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 2px 8px;
+  border-radius: var(--radius-full);
+  font-weight: 700;
+}
+
+.matrix-node-tier.master {
+  color: var(--kh-gold);
+  border: 1px solid var(--kh-gold-dim);
+  background: var(--kh-gold-glow);
+}
+
+.matrix-node-tier.expert {
+  color: var(--tm-green);
+  border: 1px solid var(--tm-green-dim);
+  background: var(--tm-green-glow);
+}
+
+.matrix-node-tier.advanced {
+  color: var(--hq-cyan);
+  border: 1px solid var(--hq-cyan-dim);
+  background: var(--hq-cyan-glow);
+}
+
+.matrix-node-tier.proficient {
+  color: var(--pv-violet);
+  border: 1px solid var(--pv-violet-dim);
+  background: var(--pv-violet-glow);
+}
+
+.matrix-node-xp-track {
+  width: 100%;
+  height: 3px;
+  background: var(--nebula-light);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+  margin-top: 4px;
+}
+
+.matrix-node-xp-fill {
+  height: 100%;
+  background: var(--grad-tm);
+  border-radius: var(--radius-full);
+  width: 0;
+  transition: width 1.2s var(--ease-out);
+}
+
+.matrix-node-meta {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  font-family: var(--font-mono);
+  font-size: 9px;
+  color: var(--asteroid);
+}
