@@ -1,0 +1,169 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120">
+  <defs>
+    <!-- Core Glow -->
+    <radialGradient id="nexCoreGlow" cx="50%" cy="45%" r="55%">
+      <stop offset="0%" stop-color="#00E5FF" stop-opacity="0.35"/>
+      <stop offset="100%" stop-color="#0A1128" stop-opacity="0"/>
+    </radialGradient>
+    <!-- Body gradient -->
+    <linearGradient id="nexBody" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1A2340"/>
+      <stop offset="50%" stop-color="#0E1726"/>
+      <stop offset="100%" stop-color="#070B14"/>
+    </linearGradient>
+    <!-- Visor gradient -->
+    <linearGradient id="nexVisor" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#00E5FF"/>
+      <stop offset="50%" stop-color="#0099CC"/>
+      <stop offset="100%" stop-color="#006688"/>
+    </linearGradient>
+    <!-- Antenna glow -->
+    <filter id="nexGlow">
+      <feGaussianBlur stdDeviation="2.5" result="glow"/>
+      <feMerge>
+        <feMergeNode in="glow"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <!-- Eye glow -->
+    <filter id="nexEyeGlow">
+      <feGaussianBlur stdDeviation="1.8" result="glow"/>
+      <feMerge>
+        <feMergeNode in="glow"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <!-- Halo ring glow -->
+    <filter id="nexHaloGlow">
+      <feGaussianBlur stdDeviation="1.2" result="glow"/>
+      <feMerge>
+        <feMergeNode in="glow"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Background ambient glow -->
+  <circle cx="60" cy="55" r="55" fill="url(#nexCoreGlow)"/>
+
+  <!-- Halo / Orbital Ring -->
+  <ellipse cx="60" cy="28" rx="28" ry="6" fill="none" stroke="#00E5FF" stroke-width="1.2" opacity="0.7" filter="url(#nexHaloGlow)">
+    <animateTransform attributeName="transform" type="rotate" values="0 60 28;360 60 28" dur="8s" repeatCount="indefinite"/>
+  </ellipse>
+
+  <!-- Antenna structure -->
+  <g filter="url(#nexGlow)">
+    <!-- Main antenna stem -->
+    <line x1="60" y1="22" x2="60" y2="12" stroke="#00E5FF" stroke-width="1.5" stroke-linecap="round"/>
+    <!-- Antenna tip orb -->
+    <circle cx="60" cy="10" r="3.5" fill="#00E5FF" opacity="0.9">
+      <animate attributeName="opacity" values="0.6;1;0.6" dur="2s" repeatCount="indefinite"/>
+      <animate attributeName="r" values="3;4;3" dur="2s" repeatCount="indefinite"/>
+    </circle>
+    <!-- Side antenna lines -->
+    <line x1="42" y1="34" x2="35" y2="26" stroke="#00E5FF" stroke-width="1" stroke-linecap="round" opacity="0.5"/>
+    <circle cx="34" cy="25" r="2" fill="#00E5FF" opacity="0.4">
+      <animate attributeName="opacity" values="0.3;0.7;0.3" dur="3s" repeatCount="indefinite"/>
+    </circle>
+    <line x1="78" y1="34" x2="85" y2="26" stroke="#00E5FF" stroke-width="1" stroke-linecap="round" opacity="0.5"/>
+    <circle cx="86" cy="25" r="2" fill="#00E5FF" opacity="0.4">
+      <animate attributeName="opacity" values="0.3;0.7;0.3" dur="3s" begin="1.5s" repeatCount="indefinite"/>
+    </circle>
+  </g>
+
+  <!-- Head / Helmet -->
+  <path d="M 35 50 Q 35 24, 60 22 Q 85 24, 85 50 L 85 56 Q 85 64, 78 66 L 42 66 Q 35 64, 35 56 Z" 
+        fill="url(#nexBody)" stroke="#1E2D4A" stroke-width="1.2"/>
+
+  <!-- Visor panel -->
+  <path d="M 40 40 Q 40 35, 60 34 Q 80 35, 80 40 L 80 50 Q 80 54, 75 55 L 45 55 Q 40 54, 40 50 Z"
+        fill="url(#nexVisor)" opacity="0.2" stroke="#00E5FF" stroke-width="0.6"/>
+
+  <!-- Eyes -->
+  <g filter="url(#nexEyeGlow)">
+    <!-- Left eye -->
+    <ellipse cx="49" cy="45" rx="6.5" ry="5" fill="#00E5FF" opacity="0.95">
+      <animate attributeName="ry" values="5;0.8;5" dur="4s" begin="2s" repeatCount="indefinite"/>
+    </ellipse>
+    <!-- Left pupil -->
+    <circle cx="50" cy="45" r="2.2" fill="#FFFFFF" opacity="0.9">
+      <animate attributeName="cy" values="45;44;45" dur="3s" repeatCount="indefinite"/>
+    </circle>
+
+    <!-- Right eye -->
+    <ellipse cx="71" cy="45" rx="6.5" ry="5" fill="#00E5FF" opacity="0.95">
+      <animate attributeName="ry" values="5;0.8;5" dur="4s" begin="2s" repeatCount="indefinite"/>
+    </ellipse>
+    <!-- Right pupil -->
+    <circle cx="72" cy="45" r="2.2" fill="#FFFFFF" opacity="0.9">
+      <animate attributeName="cy" values="45;44;45" dur="3s" repeatCount="indefinite"/>
+    </circle>
+  </g>
+
+  <!-- Mouth / Speaker grille -->
+  <rect x="50" y="56" width="20" height="3" rx="1.5" fill="#00E5FF" opacity="0.3"/>
+  <g opacity="0.25">
+    <rect x="52" y="57" width="2" height="1" rx="0.5" fill="#00E5FF"/>
+    <rect x="56" y="57" width="2" height="1" rx="0.5" fill="#00E5FF"/>
+    <rect x="60" y="57" width="2" height="1" rx="0.5" fill="#00E5FF"/>
+    <rect x="64" y="57" width="2" height="1" rx="0.5" fill="#00E5FF"/>
+  </g>
+
+  <!-- Neck connector -->
+  <rect x="52" y="66" width="16" height="5" rx="2" fill="#0E1726" stroke="#1E2D4A" stroke-width="0.8"/>
+
+  <!-- Chest / Torso shell -->
+  <path d="M 38 71 Q 38 68, 42 68 L 78 68 Q 82 68, 82 71 L 84 90 Q 84 96, 78 98 L 42 98 Q 36 96, 36 90 Z"
+        fill="url(#nexBody)" stroke="#1E2D4A" stroke-width="1"/>
+
+  <!-- Chest core reactor -->
+  <circle cx="60" cy="82" r="7" fill="none" stroke="#00E5FF" stroke-width="1" opacity="0.6"/>
+  <circle cx="60" cy="82" r="4.5" fill="#00E5FF" opacity="0.5">
+    <animate attributeName="opacity" values="0.3;0.7;0.3" dur="2.5s" repeatCount="indefinite"/>
+    <animate attributeName="r" values="4;5.5;4" dur="2.5s" repeatCount="indefinite"/>
+  </circle>
+  <circle cx="60" cy="82" r="2" fill="#FFFFFF" opacity="0.8"/>
+
+  <!-- Chest detail lines -->
+  <line x1="42" y1="75" x2="52" y2="75" stroke="#00E5FF" stroke-width="0.6" opacity="0.3"/>
+  <line x1="68" y1="75" x2="78" y2="75" stroke="#00E5FF" stroke-width="0.6" opacity="0.3"/>
+  <line x1="42" y1="90" x2="52" y2="90" stroke="#00E5FF" stroke-width="0.6" opacity="0.2"/>
+  <line x1="68" y1="90" x2="78" y2="90" stroke="#00E5FF" stroke-width="0.6" opacity="0.2"/>
+
+  <!-- Arms (simplified) -->
+  <!-- Left arm -->
+  <path d="M 38 72 L 30 78 L 28 90 L 32 92 L 34 82 L 38 78" fill="url(#nexBody)" stroke="#1E2D4A" stroke-width="0.8" opacity="0.85"/>
+  <!-- Right arm -->
+  <path d="M 82 72 L 90 78 L 92 90 L 88 92 L 86 82 L 82 78" fill="url(#nexBody)" stroke="#1E2D4A" stroke-width="0.8" opacity="0.85"/>
+
+  <!-- Thruster base -->
+  <rect x="46" y="97" width="28" height="4" rx="2" fill="#0E1726" stroke="#1E2D4A" stroke-width="0.6"/>
+
+  <!-- Thruster flames -->
+  <g opacity="0.8">
+    <ellipse cx="52" cy="104" rx="3" ry="5" fill="#00E5FF" opacity="0.6">
+      <animate attributeName="ry" values="4;7;4" dur="0.7s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0.4;0.8;0.4" dur="0.7s" repeatCount="indefinite"/>
+    </ellipse>
+    <ellipse cx="52" cy="104" rx="1.5" ry="3" fill="#FFFFFF" opacity="0.5">
+      <animate attributeName="ry" values="2;4;2" dur="0.7s" repeatCount="indefinite"/>
+    </ellipse>
+    <ellipse cx="68" cy="104" rx="3" ry="5" fill="#00E5FF" opacity="0.6">
+      <animate attributeName="ry" values="4;7;4" dur="0.7s" begin="0.15s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0.4;0.8;0.4" dur="0.7s" begin="0.15s" repeatCount="indefinite"/>
+    </ellipse>
+    <ellipse cx="68" cy="104" rx="1.5" ry="3" fill="#FFFFFF" opacity="0.5">
+      <animate attributeName="ry" values="2;4;2" dur="0.7s" begin="0.15s" repeatCount="indefinite"/>
+    </ellipse>
+  </g>
+
+  <!-- Shoulder accents -->
+  <circle cx="38" cy="72" r="3" fill="#0E1726" stroke="#00E5FF" stroke-width="0.6" opacity="0.5"/>
+  <circle cx="82" cy="72" r="3" fill="#0E1726" stroke="#00E5FF" stroke-width="0.6" opacity="0.5"/>
+
+  <!-- Forehead detail -->
+  <path d="M 50 30 L 60 27 L 70 30" fill="none" stroke="#00E5FF" stroke-width="0.8" opacity="0.4"/>
+  
+  <!-- Helmet edge highlights -->
+  <path d="M 38 38 Q 38 26, 60 24 Q 82 26, 82 38" fill="none" stroke="#00E5FF" stroke-width="0.5" opacity="0.25"/>
+</svg>

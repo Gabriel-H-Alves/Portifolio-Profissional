@@ -1,0 +1,169 @@
+/* [project]/src/styles/boot.css [app-client] (css) */
+#boot-screen {
+  z-index: var(--z-boot);
+  background: var(--deep-space);
+  font-family: var(--font-mono);
+  color: var(--hq-cyan);
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  position: fixed;
+  inset: 0;
+}
+
+#boot-screen:before {
+  content: "";
+  pointer-events: none;
+  background: repeating-linear-gradient(0deg, #0000, #0000 2px, #00e5ff03 2px 4px);
+  position: absolute;
+  inset: 0;
+}
+
+.boot-logo {
+  font-family: var(--font-display);
+  letter-spacing: .18em;
+  margin-bottom: var(--sp-xs);
+  opacity: 0;
+  font-size: clamp(2rem, 5vw, 3.2rem);
+  font-weight: 900;
+  position: relative;
+}
+
+.boot-logo .g {
+  display: inline-block;
+  position: relative;
+}
+
+.boot-logo .g:before, .boot-logo .g:after {
+  content: attr(data-text);
+  opacity: .7;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.boot-logo .g:before {
+  color: var(--ai-magenta);
+  animation: .4s linear 2 glitch1;
+}
+
+.boot-logo .g:after {
+  color: var(--pv-violet);
+  animation: .4s linear 50ms 2 glitch2;
+}
+
+.boot-sub {
+  font-size: var(--text-xs);
+  color: var(--asteroid);
+  margin-bottom: var(--sp-2xl);
+  letter-spacing: .22em;
+  opacity: 0;
+  text-transform: uppercase;
+}
+
+.boot-lines {
+  text-align: left;
+  width: min(480px, 80vw);
+  margin-bottom: var(--sp-xl);
+}
+
+.boot-line {
+  font-size: var(--text-sm);
+  opacity: 0;
+  justify-content: space-between;
+  gap: var(--sp-md);
+  align-items: center;
+  padding: 3px 0;
+  display: flex;
+}
+
+.boot-line-icon {
+  align-items: center;
+  gap: var(--sp-sm);
+  display: flex;
+}
+
+.boot-line-icon svg {
+  width: 14px;
+  height: 14px;
+  stroke: var(--hq-cyan);
+  fill: none;
+  stroke-width: 1.5px;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  opacity: .7;
+}
+
+.boot-line .dots {
+  color: var(--asteroid-dim);
+  letter-spacing: 2px;
+  flex: 1;
+  font-size: 10px;
+  overflow: hidden;
+}
+
+.boot-line .status {
+  color: var(--success);
+  text-align: right;
+  min-width: 16px;
+  font-weight: 700;
+  font-size: var(--text-xs);
+}
+
+.boot-line .status.pending {
+  color: var(--warning);
+}
+
+.boot-progress-wrap {
+  width: min(400px, 70vw);
+  margin-bottom: var(--sp-lg);
+  opacity: 0;
+}
+
+.boot-progress-bar {
+  background: var(--nebula-light);
+  border-radius: var(--radius-full);
+  height: 2px;
+  position: relative;
+  overflow: hidden;
+}
+
+.boot-progress-fill {
+  background: var(--grad-hq);
+  border-radius: var(--radius-full);
+  width: 0;
+  height: 100%;
+  box-shadow: 0 0 12px var(--hq-cyan-glow);
+}
+
+.boot-pct {
+  color: var(--asteroid);
+  text-align: right;
+  letter-spacing: .1em;
+  margin-top: 4px;
+  font-size: 10px;
+}
+
+.boot-enter {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--asteroid);
+  letter-spacing: .15em;
+  text-transform: uppercase;
+  opacity: 0;
+  cursor: pointer;
+  border: 1px solid var(--hq-cyan-dim);
+  padding: var(--sp-sm) var(--sp-xl);
+  border-radius: var(--radius-sm);
+  margin-top: var(--sp-md);
+  transition: all var(--dur-base) var(--ease-smooth);
+}
+
+.boot-enter:hover {
+  color: var(--hq-cyan);
+  background: var(--hq-cyan-glow);
+  box-shadow: 0 0 20px var(--hq-cyan-glow);
+}
+
+/*# sourceMappingURL=src_styles_boot_css_1igg3k2._.single.css.map*/

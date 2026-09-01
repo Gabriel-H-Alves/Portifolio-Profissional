@@ -1,56 +1,267 @@
 /* ═══════════════════════════════════════════════════════
-   NEXUS AI ASSISTANT — N-AI // Magenta Core (#FF006E)
+   NEXUS OS v3 — NEX: OFFICIAL LIVING AI COMPANION
+   Sleek Futuristic Digital Entity (GSAP Animated)
    ═══════════════════════════════════════════════════════ */
 
-.ai-float-toggle {
+/* ─── NEX Main Floating Container ─── */
+.nex-companion-wrap {
   position: fixed;
-  bottom: var(--sp-xl);
-  right: var(--sp-xl);
-  width: 58px;
-  height: 58px;
-  border-radius: 50%;
-  background: var(--grad-ai);
+  bottom: 20px;
+  right: 24px;
+  width: 140px;
+  height: 160px;
+  z-index: var(--z-ai);
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  outline: none;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  perspective: 800px;
+  transition: transform 0.3s var(--ease-smooth);
+}
+
+/* ─── Holographic Speech / Thought Bubble ─── */
+.nex-speech-bubble {
+  position: absolute;
+  bottom: 155px;
+  right: -15px;
+  min-width: 200px;
+  max-width: 280px;
+  background: rgba(6, 9, 24, 0.94);
+  border: 1px solid rgba(0, 229, 255, 0.45);
+  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.75), 0 0 25px rgba(0, 229, 255, 0.25);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-radius: 14px;
+  padding: 12px 16px;
+  pointer-events: none;
+  opacity: 0;
+  transform: translateY(14px) scale(0.9);
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  z-index: 20;
+}
+
+.nex-speech-bubble.visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.nex-bubble-header {
   display: flex;
   align-items: center;
+  justify-content: space-between;
+  margin-bottom: 6px;
+}
+
+.nex-bubble-badge {
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: var(--hq-cyan);
+  background: rgba(0, 229, 255, 0.12);
+  padding: 2px 6px;
+  border-radius: 4px;
+  border: 1px solid rgba(0, 229, 255, 0.3);
+}
+
+.nex-bubble-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #00FF88;
+  box-shadow: 0 0 8px #00FF88;
+}
+
+.nex-bubble-text {
+  font-family: var(--font-display);
+  font-size: 12.5px;
+  font-weight: 600;
+  color: #FFFFFF;
+  line-height: 1.45;
+  letter-spacing: 0.02em;
+  text-shadow: 0 0 10px rgba(0, 229, 255, 0.5);
+}
+
+.nex-bubble-arrow {
+  position: absolute;
+  bottom: -6px;
+  right: 50px;
+  width: 12px;
+  height: 12px;
+  background: rgba(6, 9, 24, 0.94);
+  border-right: 1px solid rgba(0, 229, 255, 0.45);
+  border-bottom: 1px solid rgba(0, 229, 255, 0.45);
+  transform: rotate(45deg);
+}
+
+/* ─── NEX Character Entity ─── */
+.nex-entity {
+  position: relative;
+  width: 125px;
+  height: 140px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   justify-content: center;
-  font-size: 1.5rem;
-  cursor: pointer;
-  z-index: var(--z-ai);
-  border: 1.5px solid rgba(255, 255, 255, 0.2);
-  color: #fff;
-  box-shadow: 0 4px 25px var(--ai-magenta-glow);
-  transition: all var(--dur-base) var(--ease-smooth);
+  transform-style: preserve-3d;
+  transform-origin: center bottom;
 }
 
-.ai-float-toggle:hover {
-  transform: scale(1.1) rotate(5deg);
-  box-shadow: 0 8px 35px rgba(255, 0, 110, 0.5);
+/* ─── NEX Body Image (SVG Avatar) ─── */
+.nex-body-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 0 12px rgba(0, 229, 255, 0.4)) drop-shadow(0 6px 18px rgba(0, 0, 0, 0.5));
+  transition: filter 0.3s ease, transform 0.15s ease-out;
+  pointer-events: none;
 }
 
-.ai-float-toggle.active {
-  background: var(--void);
-  border-color: var(--ai-magenta);
-  color: var(--ai-magenta);
+/* ─── Energy Halo Orbit Ring ─── */
+.nex-energy-ring {
+  position: absolute;
+  top: -6px;
+  width: 75px;
+  height: 24px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(0, 229, 255, 0.6);
+  box-shadow: 0 0 16px rgba(0, 229, 255, 0.8), inset 0 0 10px rgba(0, 229, 255, 0.4);
+  transform: rotateX(70deg);
+  pointer-events: none;
+  transition: all 0.4s ease;
 }
 
-/* Floating AI Chat Window */
+/* ─── Thruster Jet Exhaust Plasma ─── */
+.nex-thruster-exhaust {
+  position: absolute;
+  bottom: 8px;
+  display: flex;
+  gap: 22px;
+  pointer-events: none;
+}
+
+.exhaust-flame {
+  width: 8px;
+  height: 14px;
+  background: radial-gradient(ellipse at top, #FFFFFF 0%, #00E5FF 50%, transparent 100%);
+  border-radius: 50%;
+  filter: blur(1.5px);
+  animation: nexFlamePulse 0.8s ease-in-out infinite alternate;
+}
+
+.exhaust-flame.flame-right {
+  animation-delay: 0.15s;
+}
+
+@keyframes nexFlamePulse {
+  0% { transform: scale(0.85); opacity: 0.65; }
+  100% { transform: scale(1.25); opacity: 1; filter: blur(2.5px); }
+}
+
+/* ─── Holographic Ground Shadow ─── */
+.nex-ground-shadow {
+  width: 70px;
+  height: 14px;
+  background: radial-gradient(ellipse at center, rgba(0, 229, 255, 0.45) 0%, rgba(0, 0, 0, 0.7) 50%, transparent 80%);
+  border-radius: 50%;
+  margin-top: 2px;
+  filter: blur(4px);
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+/* ═══════════════════════════════════════════════════════
+   NEX INTERACTIVE STATE MODIFIERS (GSAP / CSS)
+   ═══════════════════════════════════════════════════════ */
+
+/* 1. IDLE */
+.state-idle .nex-body-img {
+  filter: drop-shadow(0 0 12px rgba(0, 229, 255, 0.4)) drop-shadow(0 6px 18px rgba(0, 0, 0, 0.5));
+}
+
+/* 2. HOVER (Cursor Proximity) */
+.state-hover .nex-body-img {
+  filter: drop-shadow(0 0 22px rgba(0, 229, 255, 0.75)) drop-shadow(0 10px 26px rgba(0, 229, 255, 0.3));
+}
+.state-hover .nex-energy-ring {
+  border-color: #00E5FF;
+  box-shadow: 0 0 24px #00E5FF, inset 0 0 14px #00E5FF;
+}
+
+/* 3. THINKING (AI Processing) */
+.state-thinking .nex-body-img {
+  filter: drop-shadow(0 0 24px #FF006E) drop-shadow(0 0 40px rgba(255, 0, 110, 0.5));
+}
+.state-thinking .nex-energy-ring {
+  border-color: #FF006E;
+  box-shadow: 0 0 26px #FF006E;
+  animation: nexRingSpin 0.9s linear infinite;
+}
+
+@keyframes nexRingSpin {
+  0% { transform: rotateX(70deg) rotateZ(0deg); }
+  100% { transform: rotateX(70deg) rotateZ(360deg); }
+}
+
+/* 4. NEURAL MODE (python awaken.py) */
+.state-neural .nex-body-img {
+  filter: drop-shadow(0 0 35px #00E5FF) drop-shadow(0 0 55px rgba(0, 229, 255, 0.7)) brightness(1.15) !important;
+  animation: nexNeuralPulse 1s ease-in-out infinite alternate !important;
+}
+.state-neural .nex-energy-ring {
+  border-color: #00E5FF !important;
+  box-shadow: 0 0 35px #00E5FF !important;
+}
+
+@keyframes nexNeuralPulse {
+  0% { transform: scale(1); }
+  100% { transform: scale(1.06); }
+}
+
+/* 5. FUTURE MODE (git checkout future) */
+.state-future .nex-body-img {
+  filter: hue-rotate(240deg) drop-shadow(0 0 30px #B400FF) drop-shadow(0 0 50px rgba(180, 0, 255, 0.5)) brightness(1.1) !important;
+}
+.state-future .nex-energy-ring {
+  border-color: #B400FF !important;
+  box-shadow: 0 0 30px #B400FF !important;
+}
+
+/* 6. ALERT / WARNING (sudo rm -rf reality) */
+.state-alert .nex-body-img {
+  filter: drop-shadow(0 0 35px #FF3366) drop-shadow(0 0 55px rgba(255, 51, 102, 0.7)) brightness(1.05) !important;
+}
+.state-alert .nex-energy-ring {
+  border-color: #FF3366 !important;
+  box-shadow: 0 0 35px #FF3366 !important;
+}
+.state-alert .exhaust-flame {
+  background: radial-gradient(ellipse at top, #FFFFFF 0%, #FF3366 50%, transparent 100%) !important;
+}
+
+/* ─── Floating AI Chat Window ─── */
 .ai-chat-window {
   position: fixed;
-  bottom: calc(var(--sp-xl) + 72px);
-  right: var(--sp-xl);
-  width: 400px;
+  bottom: 175px;
+  right: 24px;
+  width: 410px;
   max-height: 560px;
   z-index: var(--z-ai);
   display: flex;
   flex-direction: column;
   border-radius: var(--radius-xl);
-  background: var(--void);
-  border: 1px solid var(--ai-magenta-dim);
-  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.7), 0 0 30px var(--ai-magenta-glow);
+  background: rgba(6, 8, 20, 0.95);
+  border: 1px solid rgba(0, 229, 255, 0.35);
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.85), 0 0 40px rgba(0, 229, 255, 0.2);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   opacity: 0;
   transform: translateY(20px) scale(0.94);
   pointer-events: none;
-  transition: all var(--dur-base) var(--ease-out);
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .ai-chat-window.open {
@@ -65,49 +276,50 @@
   align-items: center;
   gap: var(--sp-md);
   padding: var(--sp-md) var(--sp-lg);
-  border-bottom: var(--border-dim);
-  background: rgba(255, 0, 110, 0.05);
+  border-bottom: 1px solid rgba(0, 229, 255, 0.15);
+  background: rgba(0, 229, 255, 0.05);
   border-radius: var(--radius-xl) var(--radius-xl) 0 0;
 }
 
 .ai-avatar-core {
-  width: 38px;
-  height: 38px;
+  width: 42px;
+  height: 42px;
   border-radius: 50%;
-  background: var(--grad-ai);
+  background: radial-gradient(circle at center, rgba(0, 229, 255, 0.3), #0A1128);
+  border: 1px solid rgba(0, 229, 255, 0.4);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.2rem;
-  color: #fff;
   position: relative;
-  box-shadow: 0 0 12px var(--ai-magenta-glow);
+  box-shadow: 0 0 16px rgba(0, 229, 255, 0.5);
+  overflow: hidden;
 }
 
 .ai-avatar-core::after {
   content: '';
   position: absolute;
-  bottom: 0;
-  right: 0;
-  width: 10px;
-  height: 10px;
+  bottom: 2px;
+  right: 2px;
+  width: 8px;
+  height: 8px;
   border-radius: 50%;
-  background: var(--success);
-  border: 2px solid var(--void);
+  background: #00FF88;
+  border: 1.5px solid var(--void);
+  box-shadow: 0 0 6px #00FF88;
 }
 
 .ai-header-title {
   font-family: var(--font-display);
   font-size: var(--text-sm);
   font-weight: 700;
-  color: var(--ai-magenta);
+  color: var(--hq-cyan);
   letter-spacing: 0.12em;
 }
 
 .ai-header-status {
   font-family: var(--font-mono);
   font-size: 10px;
-  color: var(--success);
+  color: #00FF88;
   letter-spacing: 0.06em;
 }
 
@@ -147,21 +359,21 @@
 }
 
 .ai-msg.system .ai-msg-bubble {
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.07);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(0, 229, 255, 0.2);
   color: var(--starlight);
   border-top-left-radius: 2px;
 }
 
 .ai-msg.user .ai-msg-bubble {
-  background: var(--ai-magenta-glow);
-  border: 1px solid var(--ai-magenta-dim);
-  color: var(--starlight);
+  background: rgba(0, 229, 255, 0.15);
+  border: 1px solid rgba(0, 229, 255, 0.4);
+  color: #FFFFFF;
   border-top-right-radius: 2px;
 }
 
 .ai-msg-bubble .highlight {
-  color: var(--ai-magenta);
+  color: var(--hq-cyan);
   font-weight: 600;
 }
 
@@ -176,7 +388,7 @@
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: var(--ai-magenta);
+  background: var(--hq-cyan);
   animation: dataPulse 1.2s infinite ease-in-out;
 }
 
@@ -195,17 +407,17 @@
   padding: 4px 10px;
   font-family: var(--font-mono);
   font-size: 10px;
-  color: var(--ai-magenta);
-  border: 1px solid var(--ai-magenta-dim);
+  color: var(--hq-cyan);
+  border: 1px solid rgba(0, 229, 255, 0.3);
   border-radius: var(--radius-full);
   cursor: pointer;
   transition: all var(--dur-fast);
-  background: rgba(255, 0, 110, 0.04);
+  background: rgba(0, 229, 255, 0.04);
 }
 
 .ai-prompt-chip:hover {
-  background: var(--ai-magenta-glow);
-  box-shadow: 0 0 10px var(--ai-magenta-glow);
+  background: rgba(0, 229, 255, 0.2);
+  box-shadow: 0 0 10px rgba(0, 229, 255, 0.4);
   transform: translateY(-1px);
 }
 
@@ -214,8 +426,8 @@
   display: flex;
   gap: var(--sp-sm);
   padding: var(--sp-md);
-  border-top: var(--border-dim);
-  background: rgba(10, 10, 20, 0.5);
+  border-top: 1px solid rgba(0, 229, 255, 0.15);
+  background: rgba(10, 10, 20, 0.6);
 }
 
 .ai-input-field {
@@ -224,23 +436,23 @@
   font-family: var(--font-body);
   font-size: var(--text-sm);
   color: var(--starlight);
-  background: var(--nebula);
-  border: var(--border-subtle);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(0, 229, 255, 0.25);
   border-radius: var(--radius-md);
   outline: none;
   transition: border-color var(--dur-fast);
 }
 
 .ai-input-field:focus {
-  border-color: var(--ai-magenta-dim);
-  box-shadow: 0 0 12px var(--ai-magenta-glow);
+  border-color: var(--hq-cyan);
+  box-shadow: 0 0 12px rgba(0, 229, 255, 0.4);
 }
 
 .ai-send-action {
   width: 38px;
   height: 38px;
   border-radius: var(--radius-md);
-  background: var(--grad-ai);
+  background: linear-gradient(135deg, #00E5FF, #FF006E);
   color: #fff;
   display: flex;
   align-items: center;
@@ -251,7 +463,7 @@
 }
 
 .ai-send-action:hover {
-  box-shadow: 0 0 15px var(--ai-magenta-glow);
+  box-shadow: 0 0 18px rgba(0, 229, 255, 0.6);
   transform: scale(1.05);
 }
 
@@ -259,12 +471,12 @@
   .ai-chat-window {
     width: calc(100vw - 2 * var(--sp-md));
     right: var(--sp-md);
-    bottom: calc(var(--sp-md) + 68px);
+    bottom: calc(var(--sp-md) + 140px);
   }
-  .ai-float-toggle {
+  .nex-companion-wrap {
     right: var(--sp-md);
     bottom: var(--sp-md);
-    width: 52px;
-    height: 52px;
+    width: 110px;
+    height: 130px;
   }
 }

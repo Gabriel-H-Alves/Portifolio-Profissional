@@ -37,14 +37,56 @@
 .id-indicator svg{width:14px;height:14px;stroke:var(--id-blue);fill:none;stroke-width:1.5;flex-shrink:0;}
 .id-indicator-val{color:var(--starlight);margin-left:auto;}
 
-/* Bio Terminal */
-.id-terminal{background:var(--void);border:var(--glass-border);border-radius:var(--radius-lg);overflow:hidden;}
-.id-terminal-body{padding:var(--sp-lg);font-family:var(--font-mono);font-size:var(--text-sm);line-height:1.9;color:var(--starlight);min-height:200px;}
+/* Bio Terminal — Living Interactive Shell */
+.id-terminal{background:var(--void);border:var(--glass-border);border-radius:var(--radius-lg);overflow:hidden;box-shadow:0 12px 36px rgba(0,0,0,0.4);transition:all var(--dur-base) var(--ease-smooth);}
+.id-terminal-body{padding:var(--sp-lg);font-family:var(--font-mono);font-size:var(--text-sm);line-height:1.7;color:var(--starlight);min-height:260px;max-height:480px;overflow-y:auto;}
 .id-terminal-body .kw{color:var(--id-blue);font-weight:500;}
 .id-terminal-body .str{color:var(--tm-green);}
 .id-terminal-body .cmt{color:var(--asteroid);font-style:italic;}
-.id-terminal-body .prompt{color:var(--id-blue);}
+.id-terminal-body .prompt{color:var(--id-blue);font-weight:600;}
 .typing-cursor{display:inline-block;width:8px;height:15px;background:var(--id-blue);animation:cursorBlink 1s step-end infinite;vertical-align:text-bottom;margin-left:2px;}
+
+/* Interactive Terminal Input & Lines */
+.terminal-output-block{margin-bottom:8px;word-break:break-word;}
+.terminal-input-wrap{display:flex;align-items:center;gap:6px;margin-top:6px;}
+.terminal-input{flex:1;background:transparent;border:none;outline:none;font-family:var(--font-mono);font-size:var(--text-sm);color:var(--starlight);caret-color:var(--id-blue);padding:0;}
+.terminal-input::placeholder{color:var(--asteroid-dim);font-size:11px;}
+.terminal-echo{color:var(--starlight);opacity:0.9;}
+.terminal-help-cmd{color:var(--id-blue);font-weight:bold;display:inline-block;min-width:120px;}
+.terminal-help-desc{color:var(--asteroid);}
+.terminal-banner{border-left:2px solid var(--id-blue);padding-left:10px;margin:8px 0;background:rgba(0,180,255,0.03);}
+.terminal-alert-danger{color:var(--error);font-weight:bold;}
+.terminal-alert-warn{color:var(--warning);font-weight:bold;}
+.terminal-alert-success{color:var(--success);font-weight:bold;}
+
+/* Easter Egg Overlays & Visual State Transitions */
+body.mode-matrix-active{
+  filter:hue-rotate(85deg) contrast(1.1);
+  transition:filter 0.5s var(--ease-smooth);
+}
+
+body.mode-cyber-active #app-content{
+  box-shadow:inset 0 0 100px rgba(0,229,255,0.15);
+}
+
+body.mode-cyber-active::after{
+  background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,229,255,0.03) 2px,rgba(0,229,255,0.03) 4px);
+}
+
+body.mode-breach-active{
+  animation:breachScreenFlash 1.2s ease-in-out infinite;
+}
+
+@keyframes breachScreenFlash{
+  0%,100%{box-shadow:inset 0 0 0 transparent;}
+  50%{box-shadow:inset 0 0 80px rgba(255,51,102,0.35);}
+}
+
+.breach-card-alert{
+  border-color:rgba(255,51,102,0.8) !important;
+  box-shadow:0 0 25px rgba(255,51,102,0.35) !important;
+  transition:all 0.3s ease;
+}
 
 /* Specializations / DNA */
 .id-specs{margin-top:var(--sp-2xl);}

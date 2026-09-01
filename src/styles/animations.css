@@ -51,6 +51,168 @@
 @keyframes matrixRain{0%{transform:translateY(-100%);opacity:1}100%{transform:translateY(100vh);opacity:0}}
 @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
 
+/* ─── Reality Disintegration & Glitch Artifacts ─── */
+@keyframes realityFracture{
+  0%{transform:translate(0,0) skew(0deg);filter:contrast(1);}
+  20%{transform:translate(-8px,4px) skew(-2deg);filter:contrast(1.4) hue-rotate(90deg);}
+  40%{transform:translate(8px,-6px) skew(3deg);filter:contrast(2) invert(0.2);}
+  60%{transform:translate(-12px,-2px) skew(-4deg);filter:contrast(1.6) hue-rotate(180deg);}
+  80%{transform:translate(6px,8px) skew(2deg);filter:contrast(2.2);}
+  100%{transform:translate(0,0) skew(0deg);filter:contrast(1.2);}
+}
+
+@keyframes holographicPulse{
+  0%,100%{opacity:0.85;transform:scale(1);}
+  50%{opacity:1;transform:scale(1.015);box-shadow:0 0 60px rgba(0,229,255,0.4),inset 0 0 40px rgba(180,0,255,0.2);}
+}
+
+/* ─── Movie-Grade Reality Disintegration Matrix Overlay ─── */
+.reality-cinematic-overlay{
+  position:fixed !important;
+  inset:0 !important;
+  z-index:999999 !important;
+  background:#020206 !important;
+  overflow:hidden !important;
+  display:flex !important;
+  flex-direction:column !important;
+  align-items:center !important;
+  justify-content:center !important;
+  font-family:var(--font-mono) !important;
+}
+
+.reality-matrix-canvas{
+  position:absolute !important;
+  inset:0 !important;
+  width:100% !important;
+  height:100% !important;
+  z-index:1 !important;
+  pointer-events:none !important;
+}
+
+.reality-crt-scanline{
+  position:absolute !important;
+  inset:0 !important;
+  z-index:2 !important;
+  pointer-events:none !important;
+  background:linear-gradient(rgba(18,16,16,0) 50%, rgba(0,0,0,0.4) 50%), linear-gradient(90deg, rgba(255,0,0,0.03), rgba(0,255,0,0.01), rgba(0,0,255,0.03)) !important;
+  background-size:100% 3px, 6px 100% !important;
+}
+
+.reality-content-stage{
+  position:relative !important;
+  z-index:3 !important;
+  width:92% !important;
+  max-width:860px !important;
+  padding:32px !important;
+  background:rgba(4,4,10,0.88) !important;
+  border:1px solid rgba(0,255,136,0.4) !important;
+  border-radius:12px !important;
+  box-shadow:0 0 60px rgba(0,255,136,0.25), inset 0 0 35px rgba(0,255,136,0.08) !important;
+  backdrop-filter:blur(14px) !important;
+  -webkit-backdrop-filter:blur(14px) !important;
+}
+
+.reality-stream-line{
+  margin:10px 0 !important;
+  line-height:1.6 !important;
+  font-size:var(--text-sm) !important;
+  opacity:0;
+  transform:translateY(6px);
+}
+
+.reality-converge-title{
+  font-family:var(--font-display) !important;
+  font-size:clamp(1.4rem, 3.2vw, 2.2rem) !important;
+  font-weight:700 !important;
+  letter-spacing:0.08em !important;
+  color:#FFFFFF !important;
+  text-shadow:0 0 30px #00FF88, 0 0 60px #00E5FF !important;
+  text-align:center !important;
+  margin:16px 0 !important;
+}
+
+.reality-rebuild-bar-wrap{
+  margin-top:24px !important;
+  width:100% !important;
+  background:rgba(255,255,255,0.08) !important;
+  border-radius:999px !important;
+  height:8px !important;
+  overflow:hidden !important;
+  position:relative !important;
+  border:1px solid rgba(0,255,136,0.4) !important;
+}
+
+.reality-rebuild-bar-fill{
+  height:100% !important;
+  width:0% !important;
+  background:linear-gradient(90deg, #00FF88, #00E5FF, #B400FF) !important;
+  box-shadow:0 0 20px #00FF88 !important;
+}
+
+/* ─── Future Timeline Hologram Overlay ─── */
+.future-timeline-active{
+  filter:hue-rotate(240deg) saturate(1.4) !important;
+  transition:filter 0.8s var(--ease-smooth);
+}
+
+.future-hud-badge{
+  position:fixed;
+  top:24px;
+  right:32px;
+  z-index:999;
+  background:rgba(180,0,255,0.2);
+  border:1px solid #B400FF;
+  box-shadow:0 0 25px rgba(180,0,255,0.5);
+  color:#FFF;
+  padding:6px 16px;
+  border-radius:999px;
+  font-family:var(--font-mono);
+  font-size:12px;
+  letter-spacing:0.1em;
+  animation:holographicPulse 2s infinite;
+}
+
+/* ─── Transcendence Full Screen Canvas & Quote ─── */
+.transcendence-overlay{
+  position:fixed;
+  inset:0;
+  z-index:99998;
+  background:radial-gradient(circle at center, #0B0A1A 0%, #030308 100%);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  pointer-events:none;
+}
+
+.transcendence-quote-wrap{
+  position:relative;
+  z-index:3;
+  text-align:center;
+  max-width:800px;
+  padding:var(--sp-2xl);
+}
+
+.transcendence-quote{
+  font-family:var(--font-display);
+  font-size:clamp(1.5rem, 3.5vw, 2.5rem);
+  font-weight:700;
+  letter-spacing:0.06em;
+  color:#FFFFFF;
+  text-shadow:0 0 30px rgba(0,229,255,0.8), 0 0 60px rgba(180,0,255,0.4);
+  line-height:1.4;
+  margin-bottom:var(--sp-md);
+}
+
+.transcendence-author{
+  font-family:var(--font-mono);
+  font-size:var(--text-sm);
+  color:var(--hq-cyan);
+  letter-spacing:0.15em;
+  text-transform:uppercase;
+  opacity:0.9;
+}
+
 /* ─── Utility Classes ─── */
 .anim-fade-up{animation:fadeInUp 0.6s var(--ease-out) both;}
 .anim-fade-scale{animation:fadeInScale 0.5s var(--ease-out) both;}

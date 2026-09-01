@@ -1,0 +1,135 @@
+/* [project]/src/styles/palette.css [app-client] (css) */
+.palette-overlay {
+  -webkit-backdrop-filter: blur(16px);
+  z-index: var(--z-palette);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--dur-fast) var(--ease-smooth);
+  background: #04040ad9;
+  justify-content: center;
+  align-items: flex-start;
+  padding-top: 18vh;
+  display: flex;
+  position: fixed;
+  inset: 0;
+}
+
+.palette-overlay.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.palette-box {
+  background: var(--void);
+  border: 1px solid var(--hq-cyan-dim);
+  border-radius: var(--radius-xl);
+  width: 100%;
+  max-width: 560px;
+  box-shadow: 0 24px 80px #000c, 0 0 35px var(--hq-cyan-glow);
+  animation: modalIn var(--dur-base) var(--ease-out);
+  overflow: hidden;
+}
+
+.palette-search-wrap {
+  align-items: center;
+  gap: var(--sp-md);
+  padding: var(--sp-md) var(--sp-lg);
+  border-bottom: var(--border-dim);
+  display: flex;
+}
+
+.palette-icon-search {
+  color: var(--hq-cyan);
+  font-size: 1.2rem;
+}
+
+.palette-input-box {
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  color: var(--starlight);
+  background: none;
+  border: none;
+  outline: none;
+  flex: 1;
+}
+
+.palette-input-box::placeholder {
+  color: var(--asteroid-dim);
+}
+
+.palette-esc-badge {
+  font-family: var(--font-mono);
+  color: var(--asteroid);
+  border: var(--border-subtle);
+  border-radius: var(--radius-sm);
+  padding: 2px 7px;
+  font-size: 10px;
+}
+
+.palette-items-list {
+  max-height: 340px;
+  padding: var(--sp-sm);
+  overflow-y: auto;
+}
+
+.palette-group-tag {
+  font-family: var(--font-mono);
+  color: var(--asteroid-dim);
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  padding: var(--sp-xs) var(--sp-md);
+  margin-top: 4px;
+  font-size: 10px;
+}
+
+.palette-row-item {
+  align-items: center;
+  gap: var(--sp-md);
+  padding: 10px var(--sp-md);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all var(--dur-fast);
+  display: flex;
+}
+
+.palette-row-item:hover, .palette-row-item.active-choice {
+  background: #00e5ff14;
+}
+
+.palette-row-icon {
+  text-align: center;
+  min-width: 26px;
+  color: var(--asteroid);
+  font-size: 1.1rem;
+}
+
+.palette-row-item:hover .palette-row-icon, .palette-row-item.active-choice .palette-row-icon {
+  color: var(--hq-cyan);
+}
+
+.palette-row-label {
+  font-family: var(--font-heading);
+  font-size: var(--text-sm);
+  color: var(--starlight);
+  letter-spacing: .04em;
+  flex: 1;
+}
+
+.palette-row-key {
+  font-family: var(--font-mono);
+  color: var(--asteroid-dim);
+  font-size: 10px;
+}
+
+.palette-footer-bar {
+  padding: var(--sp-sm) var(--sp-lg);
+  border-top: var(--border-dim);
+  font-family: var(--font-mono);
+  color: var(--asteroid-dim);
+  justify-content: space-between;
+  align-items: center;
+  font-size: 10px;
+  display: flex;
+}
+
+/*# sourceMappingURL=src_styles_palette_css_1igg3k2._.single.css.map*/
