@@ -1,235 +1,484 @@
 /* ═══════════════════════════════════════════════════════
-   TECH MATRIX — T-MTX // Neural Green (#00FF88)
+   THE LIVING REACTOR // ECOSYSTEM OF CAPABILITIES
+   Awwwards & Linear / Vercel-inspired Ethereal Sci-Fi UI
    ═══════════════════════════════════════════════════════ */
 
-.matrix-layout {
-  display: flex;
-  flex-direction: column;
-  gap: var(--sp-2xl);
-}
-
-/* ─── Neural Graph View ─── */
-.neural-graph-container {
+.grav-cosmos-wrapper {
   position: relative;
   width: 100%;
-  height: 480px;
-  background: var(--void);
-  border: var(--glass-border);
-  border-radius: var(--radius-xl);
+  max-width: 1360px;
+  margin: 0 auto;
+  padding: var(--sp-lg) var(--sp-md) var(--sp-3xl);
+  font-family: var(--font-mono);
+  color: var(--starlight);
+  box-sizing: border-box;
+  user-select: none;
   overflow: hidden;
 }
 
-.neural-graph-canvas {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
+/* ─── 1. Ethereal Top Header Bar ─── */
+.grav-hdr {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--sp-md);
+  margin-bottom: var(--sp-xl);
+  padding-bottom: var(--sp-md);
+  position: relative;
+  z-index: 10;
 }
 
-.neural-graph-overlay {
+.grav-hdr::after {
+  content: '';
   position: absolute;
-  top: var(--sp-md);
-  left: var(--sp-md);
-  z-index: 2;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(0, 229, 255, 0.3), rgba(168, 85, 247, 0.3), transparent);
+}
+
+.grav-hdr-left {
   display: flex;
   flex-direction: column;
   gap: 4px;
 }
 
-.matrix-view-toggle {
-  display: flex;
-  gap: 2px;
-  background: var(--void);
-  border-radius: var(--radius-sm);
-  padding: 3px;
-  border: var(--border-subtle);
-  width: fit-content;
-}
-
-.matrix-toggle-btn {
-  padding: 6px 16px;
-  font-family: var(--font-mono);
-  font-size: var(--text-xs);
-  color: var(--asteroid);
-  border-radius: var(--radius-sm);
-  transition: all var(--dur-fast);
-  letter-spacing: 0.08em;
+.grav-hdr-tagline {
+  font-size: 11px;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
-}
-
-.matrix-toggle-btn.active {
-  background: var(--tm-green-glow);
-  color: var(--tm-green);
-  border: 1px solid var(--tm-green-dim);
-}
-
-.matrix-toggle-btn:hover:not(.active) {
-  color: var(--starlight);
-}
-
-/* ─── Category Filter Tabs ─── */
-.matrix-tabs {
-  display: flex;
-  gap: var(--sp-xs);
-  flex-wrap: wrap;
-  margin-bottom: var(--sp-lg);
-}
-
-.matrix-tab {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--sp-xs);
-  padding: 6px 14px;
-  font-family: var(--font-mono);
-  font-size: var(--text-xs);
-  color: var(--asteroid);
-  border: var(--border-subtle);
-  border-radius: var(--radius-full);
-  cursor: pointer;
-  transition: all var(--dur-fast);
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-}
-
-.matrix-tab:hover {
-  color: var(--starlight);
-  border-color: rgba(255, 255, 255, 0.15);
-}
-
-.matrix-tab.active {
-  color: var(--tm-green);
-  border-color: var(--tm-green-dim);
-  background: var(--tm-green-glow);
-}
-
-/* ─── Node Grid ─── */
-.matrix-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-  gap: var(--sp-md);
-}
-
-.matrix-node-card {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: var(--sp-sm);
-  padding: var(--sp-lg) var(--sp-md);
-  border: var(--glass-border);
-  border-radius: var(--radius-lg);
-  background: var(--glass-bg);
-  transition: all var(--dur-base) var(--ease-smooth);
-  cursor: pointer;
-  text-align: center;
-  position: relative;
-  overflow: hidden;
-}
-
-.matrix-node-card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 2px;
-  background: var(--tm-green);
-  opacity: 0;
-  transition: opacity var(--dur-fast);
-}
-
-.matrix-node-card:hover {
-  border-color: var(--tm-green-dim);
-  transform: translateY(-4px);
-  box-shadow: 0 8px 24px var(--tm-green-glow);
-}
-
-.matrix-node-card:hover::before {
-  opacity: 1;
-}
-
-.matrix-node-icon {
-  width: 42px;
-  height: 42px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: var(--radius-md);
-  background: rgba(0, 255, 136, 0.05);
-  border: 1px solid var(--tm-green-dim);
-  font-size: 1.4rem;
-  color: var(--tm-green);
-  transition: all var(--dur-base);
-}
-
-.matrix-node-card:hover .matrix-node-icon {
-  box-shadow: 0 0 16px var(--tm-green-glow);
-  transform: scale(1.08);
-}
-
-.matrix-node-name {
-  font-family: var(--font-heading);
-  font-size: var(--text-sm);
-  font-weight: 600;
-  color: var(--starlight);
-  letter-spacing: 0.04em;
-}
-
-.matrix-node-tier {
-  font-family: var(--font-mono);
-  font-size: 9px;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  padding: 2px 8px;
-  border-radius: var(--radius-full);
-  font-weight: 700;
-}
-
-.matrix-node-tier.master {
-  color: var(--kh-gold);
-  border: 1px solid var(--kh-gold-dim);
-  background: var(--kh-gold-glow);
-}
-
-.matrix-node-tier.expert {
-  color: var(--tm-green);
-  border: 1px solid var(--tm-green-dim);
-  background: var(--tm-green-glow);
-}
-
-.matrix-node-tier.advanced {
   color: var(--hq-cyan);
-  border: 1px solid var(--hq-cyan-dim);
-  background: var(--hq-cyan-glow);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 600;
 }
 
-.matrix-node-tier.proficient {
-  color: var(--pv-violet);
-  border: 1px solid var(--pv-violet-dim);
-  background: var(--pv-violet-glow);
+.grav-hdr-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.4rem, 3.5vw, 2.2rem);
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  color: #ffffff;
+  margin: 0;
+  text-shadow: 0 0 30px rgba(0, 229, 255, 0.3);
 }
 
-.matrix-node-xp-track {
-  width: 100%;
-  height: 3px;
-  background: var(--nebula-light);
-  border-radius: var(--radius-full);
-  overflow: hidden;
+.grav-hdr-sub {
+  font-family: var(--font-body);
+  font-size: 13px;
+  color: var(--asteroid);
+  max-width: 720px;
+  line-height: 1.5;
   margin-top: 4px;
 }
 
-.matrix-node-xp-fill {
-  height: 100%;
-  background: var(--grad-tm);
-  border-radius: var(--radius-full);
-  width: 0;
-  transition: width 1.2s var(--ease-out);
+.grav-hdr-sub strong {
+  color: var(--starlight);
 }
 
-.matrix-node-meta {
+.grav-hdr-right {
   display: flex;
-  justify-content: space-between;
-  width: 100%;
-  font-family: var(--font-mono);
-  font-size: 9px;
+  align-items: center;
+  gap: var(--sp-sm);
+}
+
+.grav-telemetry-pill {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  border-radius: var(--radius-full);
+  background: rgba(10, 10, 20, 0.6);
+  border: 1px solid rgba(228, 228, 240, 0.08);
+  font-size: 11px;
   color: var(--asteroid);
+  backdrop-filter: blur(12px);
+}
+
+.grav-pulse-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--hq-cyan);
+  box-shadow: 0 0 10px var(--hq-cyan);
+  animation: pulseGlow 2s infinite ease-in-out;
+}
+
+/* ─── 2. Deep Cosmic Stage (Infinite Atmosphere) ─── */
+.grav-stage {
+  position: relative;
+  width: 100%;
+  min-height: 700px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+}
+
+@media (max-width: 1024px) {
+  .grav-stage {
+    min-height: auto;
+    flex-direction: column;
+  }
+}
+
+/* Radial Light Auroras */
+.grav-aurora-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 600px;
+  height: 600px;
+  border-radius: 50%;
+  filter: blur(130px);
+  opacity: 0.35;
+  pointer-events: none;
+  transition: all 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 1;
+}
+
+.grav-aurora-outer {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 880px;
+  height: 880px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(168, 85, 247, 0.12) 0%, rgba(0, 229, 255, 0.05) 45%, transparent 70%);
+  filter: blur(95px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* SVG Laser Energy Canvas */
+.grav-svg-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* ─── 3. Majestic Central Living Reactor ─── */
+.grav-center-core {
+  position: relative;
+  z-index: 10;
+  width: 360px;
+  height: 360px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@media (max-width: 768px) {
+  .grav-center-core {
+    width: 240px;
+    height: 240px;
+    margin: var(--sp-md) auto;
+  }
+}
+
+.grav-core-instruction {
+  position: absolute;
+  bottom: -16px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 14px;
+  border-radius: var(--radius-full);
+  background: rgba(5, 5, 12, 0.85);
+  border: 1px solid rgba(228, 228, 240, 0.08);
+  font-size: 10px;
+  color: var(--asteroid);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  backdrop-filter: blur(8px);
+  z-index: 12;
+}
+
+/* ─── 4. Floating Capability Anchors (Desktop/Tablet) ─── */
+.grav-orbitals-container {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 15;
+}
+
+@media (max-width: 1024px) {
+  .grav-orbitals-container {
+    display: none;
+  }
+}
+
+/* Single Floating Capability Vector */
+.grav-node-anchor {
+  pointer-events: auto;
+  position: absolute;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  cursor: pointer;
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  min-width: 200px;
+  max-width: 280px;
+}
+
+.grav-node-anchor:hover,
+.grav-node-anchor.active {
+  z-index: 30;
+  transform: translate(-50%, -50%) scale(1.08);
+}
+
+/* Action Statement Badge (The Core Storytelling) */
+.grav-action-badge {
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--node-color, #00E5FF);
+  letter-spacing: 0.02em;
+  line-height: 1.3;
+  transition: all 0.3s ease;
+  text-shadow: 0 0 12px var(--node-glow, rgba(0, 229, 255, 0.3));
+}
+
+/* Glowing Capability Header */
+.grav-node-hdr {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  border-radius: var(--radius-full);
+  background: rgba(8, 8, 16, 0.88);
+  border: 1px solid var(--node-border, rgba(228, 228, 240, 0.1));
+  backdrop-filter: blur(12px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+  transition: all 0.3s ease;
+  width: fit-content;
+}
+
+.grav-node-anchor:hover .grav-node-hdr,
+.grav-node-anchor.active .grav-node-hdr {
+  background: rgba(10, 10, 24, 0.95);
+  border-color: var(--node-color, #00E5FF);
+  box-shadow: 0 0 25px var(--node-glow, rgba(0, 229, 255, 0.4));
+}
+
+.grav-node-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--node-color, #00E5FF);
+  transition: transform 0.3s ease;
+}
+
+.grav-node-anchor:hover .grav-node-icon {
+  transform: scale(1.15);
+}
+
+.grav-node-name {
+  font-family: var(--font-heading);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: #ffffff;
+}
+
+/* DNA Technology Stream */
+.grav-node-stream {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 6px;
+  padding: 2px 6px;
+  transition: all 0.3s ease;
+}
+
+.grav-stream-item {
+  font-size: 10px;
+  color: var(--starlight);
+  opacity: 0.6;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--font-mono);
+}
+
+.grav-node-anchor:hover .grav-stream-item,
+.grav-node-anchor.active .grav-stream-item {
+  opacity: 0.95;
+  color: #ffffff;
+  text-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
+}
+
+.grav-stream-item:not(:last-child)::after {
+  content: '·';
+  color: var(--asteroid);
+  margin-left: 4px;
+  opacity: 0.5;
+}
+
+/* ─── 5. Tactical Capability Lens (Bottom Progressive Inspector) ─── */
+.grav-focus-lens {
+  position: relative;
+  z-index: 20;
+  margin-top: var(--sp-lg);
+  padding: var(--sp-md) var(--sp-xl);
+  border-radius: var(--radius-xl);
+  background: rgba(6, 6, 14, 0.75);
+  border: 1px solid rgba(228, 228, 240, 0.08);
+  backdrop-filter: blur(20px);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: var(--sp-lg);
+  align-items: center;
+  transition: all 0.4s ease;
+}
+
+@media (max-width: 900px) {
+  .grav-focus-lens {
+    grid-template-columns: 1fr;
+    padding: var(--sp-md);
+  }
+}
+
+.grav-lens-left {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.grav-lens-action {
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--active-color, #00E5FF);
+  text-shadow: 0 0 15px var(--active-glow, rgba(0, 229, 255, 0.3));
+}
+
+.grav-lens-title {
+  font-family: var(--font-heading);
+  font-size: var(--text-md);
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: 0.04em;
+  margin-top: 2px;
+}
+
+.grav-lens-desc {
+  font-family: var(--font-body);
+  font-size: 12px;
+  color: var(--asteroid);
+  line-height: 1.4;
+  margin-top: 2px;
+}
+
+.grav-lens-right {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.grav-lens-stack-hdr {
+  font-size: 10px;
+  font-family: var(--font-mono);
+  color: var(--asteroid);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.grav-lens-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.grav-lens-pill {
+  padding: 4px 10px;
+  border-radius: var(--radius-full);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  font-size: 11px;
+  color: var(--starlight);
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.grav-lens-pill:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: var(--active-color, #00E5FF);
+  transform: translateY(-1px);
+}
+
+/* ─── 6. Mobile & Tablet Adaptive Stream Layout ─── */
+.grav-mobile-stack {
+  display: none;
+  width: 100%;
+  margin-top: var(--sp-lg);
+  flex-direction: column;
+  gap: var(--sp-md);
+  z-index: 10;
+}
+
+@media (max-width: 1024px) {
+  .grav-mobile-stack {
+    display: flex;
+  }
+}
+
+.grav-mobile-card {
+  padding: var(--sp-md);
+  border-radius: var(--radius-lg);
+  background: rgba(8, 8, 16, 0.8);
+  border: 1px solid rgba(228, 228, 240, 0.06);
+  backdrop-filter: blur(12px);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  transition: all 0.25s ease;
+  cursor: pointer;
+}
+
+.grav-mobile-card.active {
+  border-color: var(--node-color, #00E5FF);
+  background: rgba(12, 12, 28, 0.95);
+  box-shadow: 0 0 20px var(--node-glow, rgba(0, 229, 255, 0.25));
+}
+
+.grav-mobile-card-hdr {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.grav-mobile-card-action {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--node-color, #00E5FF);
+}
+
+.grav-mobile-card-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-heading);
+  font-size: 14px;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.grav-mobile-card-techs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 6px;
+  font-size: 11px;
+  color: var(--starlight);
+  opacity: 0.8;
 }

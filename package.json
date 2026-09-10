@@ -9,9 +9,6 @@
     "start": "next start",
     "lint": "next lint"
   },
-  "devDependencies": {
-    "vite": "^8.2.2"
-  },
   "dependencies": {
     "@gsap/react": "^2.1.2",
     "@radix-ui/react-dialog": "^1.1.23",

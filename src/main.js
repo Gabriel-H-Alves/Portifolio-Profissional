@@ -1420,8 +1420,10 @@ function initTechMatrix() {
       document.querySelectorAll('.matrix-toggle-btn').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
       const view = btn.dataset.view;
-      document.getElementById('matrix-neural-view').style.display = (view === 'neural') ? 'block' : 'none';
-      document.getElementById('matrix-grid-view').style.display = (view === 'grid') ? 'block' : 'none';
+      const neuralEl = document.getElementById('matrix-neural-view');
+      const gridEl = document.getElementById('matrix-grid-view');
+      if (neuralEl) neuralEl.style.display = (view === 'neural') ? 'block' : 'none';
+      if (gridEl) gridEl.style.display = (view === 'grid') ? 'block' : 'none';
     });
   });
 
@@ -1435,6 +1437,7 @@ function initTechMatrix() {
 
 function renderMatrixTabs() {
   const tabsEl = document.getElementById('matrix-category-tabs');
+  if (!tabsEl) return;
   skillCategories.forEach(cat => {
     const btn = document.createElement('button');
     btn.className = `matrix-tab ${cat.id === 'all' ? 'active' : ''}`;
@@ -1454,6 +1457,7 @@ function renderMatrixTabs() {
 
 function renderMatrixGrid(catId) {
   const gridEl = document.getElementById('matrix-nodes-grid');
+  if (!gridEl) return;
   const filtered = (catId === 'all') ? skills : skills.filter(s => s.category === catId);
   gridEl.innerHTML = '';
 
@@ -1846,6 +1850,10 @@ function unlockAchievement(achId) {
   if (state.achievements.length >= 8) {
     setTimeout(() => unlockAchievement('full_access'), 1000);
   }
+}
+
+if (typeof window !== 'undefined') {
+  window.unlockAchievement = unlockAchievement;
 }
 
 function showToast(icon, title, desc) {

@@ -2,6 +2,7 @@
 
 import React, { useEffect } from "react";
 import { startNexusOS } from "@/main.js";
+import { EngineeringCoreSection } from "@/components/modules/engineering-core/EngineeringCoreSection";
 
 export default function HomePage() {
   useEffect(() => {
@@ -56,7 +57,7 @@ export default function HomePage() {
             <span className="nav-dot"></span>
           </button>
           <button className="nav-link" data-navigate="matrix">
-            Tech Matrix
+            Engineering Core
             <span className="nav-dot"></span>
           </button>
           <button className="nav-link" data-navigate="missions">
@@ -181,14 +182,15 @@ export default function HomePage() {
 
             <div className="hq-mod" data-navigate="matrix">
               <div className="hq-mod-icon">
-                <svg viewBox="0 0 24 24">
-                  <polygon points="12 2 2 7 12 12 22 7 12 2" />
-                  <polyline points="2 17 12 22 22 17" />
-                  <polyline points="2 12 12 17 22 12" />
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <circle cx="12" cy="12" r="3" />
+                  <circle cx="12" cy="12" r="8" strokeDasharray="4 4" />
+                  <line x1="12" y1="2" x2="12" y2="6" />
+                  <line x1="12" y1="18" x2="12" y2="22" />
                 </svg>
               </div>
-              <div className="hq-mod-label">Tech Matrix</div>
-              <div className="hq-mod-code">T-MTX // NEURAL GRAPH</div>
+              <div className="hq-mod-label">Engineering Core</div>
+              <div className="hq-mod-code">ENG-CORE // KNOWLEDGE TOPOLOGY</div>
             </div>
 
             <div className="hq-mod" data-navigate="missions">
@@ -304,58 +306,15 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* ─── 3. TECH MATRIX (T-MTX) ─── */}
+        {/* ─── 3. ENGINEERING CORE (ENG-CORE / KNOWLEDGE TOPOLOGY) ─── */}
         <section id="section-matrix" className="section" data-module="t-mtx">
-          <div className="container">
-            <div className="section-hdr">
-              <div className="section-hdr-icon">
-                <svg viewBox="0 0 24 24">
-                  <polygon points="12 2 2 7 12 12 22 7 12 2" />
-                  <polyline points="2 17 12 22 22 17" />
-                  <polyline points="2 12 12 17 22 12" />
-                </svg>
-              </div>
-              <div className="section-hdr-text">
-                <h2>TECH MATRIX</h2>
-                <div className="section-code">// T-MTX // NEURAL GRAPH & CAPABILITY NODES</div>
-              </div>
-              <div style={{ marginLeft: "auto" }}>
-                <div className="matrix-view-toggle">
-                  <button className="matrix-toggle-btn active" data-view="neural">
-                    NEURAL GRAPH
-                  </button>
-                  <button className="matrix-toggle-btn" data-view="grid">
-                    GRID VIEW
-                  </button>
-                </div>
-              </div>
-            </div>
-
-            <div className="matrix-layout">
-              {/* Neural Graph Canvas */}
-              <div className="neural-graph-container" id="matrix-neural-view">
-                <canvas className="neural-graph-canvas" id="neural-canvas"></canvas>
-                <div className="neural-graph-overlay">
-                  <div className="badge badge-green">LIVE SYNAPSE GRAPH</div>
-                  <div
-                    style={{
-                      fontFamily: "var(--font-mono)",
-                      fontSize: "10px",
-                      color: "var(--asteroid)",
-                    }}
-                  >
-                    Interactive canvas — hover nodes to inspect synapses
-                  </div>
-                </div>
-              </div>
-
-              {/* Grid Clusters View */}
-              <div id="matrix-grid-view" style={{ display: "none" }}>
-                <div className="matrix-tabs" id="matrix-category-tabs"></div>
-                <div className="matrix-grid" id="matrix-nodes-grid"></div>
-              </div>
-            </div>
-          </div>
+          <EngineeringCoreSection
+            onUnlockAchievement={(achId) => {
+              if (typeof window !== "undefined" && (window as unknown as { unlockAchievement?: (id: string) => void }).unlockAchievement) {
+                (window as unknown as { unlockAchievement: (id: string) => void }).unlockAchievement(achId);
+              }
+            }}
+          />
         </section>
 
         {/* ─── 4. MISSION LOG (M-LOG) ─── */}

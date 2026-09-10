@@ -1,0 +1,180 @@
+import { ProfessionalCapability } from "../types/engineering-core.types";
+
+export const professionalCapabilities: ProfessionalCapability[] = [
+  {
+    id: "products",
+    name: "Engenharia de Produtos",
+    shortCode: "CAP.01 // PROD",
+    actionStatement: "Eu construo produtos digitais e experiências fluidas.",
+    headline: "Experiência, Performance, Design e Usabilidade",
+    description: "Materializo ideias em interfaces reativas, acessíveis, componentizadas e otimizadas para retenção e engajamento do usuário final.",
+    dnaTechs: [
+      "React 19",
+      "Next.js",
+      "TypeScript",
+      "TailwindCSS",
+      "JavaScript (ES6+)",
+      "HTML5 Semântico",
+      "CSS3 Animations",
+      "Figma Prototyping"
+    ],
+    iconName: "Layout",
+    color: "#00E5FF",
+    accentColor: "#00E5FF",
+    reactorPreset: {
+      dotColor: "#F4F1EA",
+      accentColor: "#00E5FF",
+      speed: 55,
+      density: 280,
+      dotSize: 110,
+      spinTurns: 1,
+      spread: 100,
+    },
+    impactHighlight: "SPAs, SSR dinâmico e design systems modulares fiéis a protótipos de alta fidelidade."
+  },
+  {
+    id: "architecture",
+    name: "Arquitetura & Sistemas",
+    shortCode: "CAP.02 // ARCH",
+    actionStatement: "Eu projeto regras consistentes e integrações resilientes.",
+    headline: "APIs REST, Modelagem de Dados e Microsserviços",
+    description: "Desenvolvo a fundação invisível das aplicações: contratos de API confiáveis, separação de camadas, concorrência e persistência relacional consistente.",
+    dnaTechs: [
+      "Java",
+      "Kotlin",
+      "Node.js",
+      "Python",
+      "PostgreSQL",
+      "MySQL",
+      "REST Contracts",
+      "Clean Code"
+    ],
+    iconName: "Server",
+    color: "#10B981",
+    accentColor: "#10B981",
+    reactorPreset: {
+      dotColor: "#ECFDF5",
+      accentColor: "#10B981",
+      speed: 60,
+      density: 300,
+      dotSize: 115,
+      spinTurns: 2,
+      spread: 105,
+    },
+    impactHighlight: "Estruturação de rotinas de servidor desacopladas com integridade referencial e validações estritas."
+  },
+  {
+    id: "ai",
+    name: "Inteligência Artificial",
+    shortCode: "CAP.03 // AGI",
+    actionStatement: "Eu potencializo desenvolvimento e automação com IA.",
+    headline: "Copilots, Pair Programming e Engenharia de Contexto",
+    description: "Integro agentes inteligentes e modelos generativos no fluxo diário para acelerar prototipagem, refatoração de código e criação de assistentes inteligentes.",
+    dnaTechs: [
+      "Claude (Anthropic)",
+      "Gemini (Google)",
+      "Antigravity IDE",
+      "Copilot Studio",
+      "Prompt Engineering",
+      "Agentes Inteligentes"
+    ],
+    iconName: "BrainCircuit",
+    color: "#A855F7",
+    accentColor: "#A855F7",
+    reactorPreset: {
+      dotColor: "#FAF5FF",
+      accentColor: "#A855F7",
+      speed: 80,
+      density: 340,
+      dotSize: 120,
+      spinTurns: 2,
+      spread: 110,
+    },
+    impactHighlight: "Aceleração exponencial de entrega e exploração com ferramentas cognitivas de ponta."
+  },
+  {
+    id: "cloud",
+    name: "Cloud & Plataformas",
+    shortCode: "CAP.04 // CLD",
+    actionStatement: "Eu sustento aplicações escaláveis na nuvem.",
+    headline: "Deploy Contínuo, Infraestrutura e Hospedagem Sob Demanda",
+    description: "Hospedo, configuro e garanto a disponibilidade de ecossistemas digitais com computação elástica, bancos gerenciados e governança de ambiente.",
+    dnaTechs: [
+      "Microsoft Azure",
+      "Azure App Services",
+      "Cloud Relational DBs",
+      "Cloud Deploy",
+      "Env Governance"
+    ],
+    iconName: "Cloud",
+    color: "#007FFF",
+    accentColor: "#007FFF",
+    reactorPreset: {
+      dotColor: "#E0F2FE",
+      accentColor: "#007FFF",
+      speed: 55,
+      density: 280,
+      dotSize: 115,
+      spinTurns: 1,
+      spread: 105,
+    },
+    impactHighlight: "Publicação contínua de serviços web com alta disponibilidade e variáveis de ambiente seguras."
+  },
+  {
+    id: "automation",
+    name: "Automação & Inovação",
+    shortCode: "CAP.05 // AUTO",
+    actionStatement: "Eu elimino gargalos operacionais e otimizo processos.",
+    headline: "Soluções Corporativas Ágeis, Low-Code e Workflows",
+    description: "Desenvolvo automações corporativas rápidas para conectar dados dispersos, agilizar aprovações e substituir tarefas manuais por fluxos inteligentes.",
+    dnaTechs: [
+      "Power Platform",
+      "Power Apps",
+      "Power Automate",
+      "Dataverse",
+      "Low-Code Enterprise",
+      "Process Automation"
+    ],
+    iconName: "Workflow",
+    color: "#F59E0B",
+    accentColor: "#F59E0B",
+    reactorPreset: {
+      dotColor: "#FFFBEB",
+      accentColor: "#F59E0B",
+      speed: 50,
+      density: 270,
+      dotSize: 115,
+      spinTurns: 1,
+      spread: 95,
+    },
+    impactHighlight: "Aceleração de fluxos de negócio e integração de sistemas legados com interfaces modernas."
+  },
+  {
+    id: "lab",
+    name: "Laboratório de Evolução",
+    shortCode: "CAP.06 // LAB",
+    actionStatement: "Eu pesquiso o futuro e as fronteiras da engenharia.",
+    headline: "Curiosidade Técnica, Cyber Security e Arquiteturas Modernas",
+    description: "Espaço de pesquisa contínua e experimentação prática: aprofundamento em segurança preventiva (OWASP), padrões de microsserviços e novas tendências.",
+    dnaTechs: [
+      "Clean Architecture",
+      "Cyber Security (OWASP)",
+      "Microservices Patterns",
+      "React Native Mobile",
+      "Tech Research"
+    ],
+    iconName: "FlaskConical",
+    color: "#EC4899",
+    accentColor: "#EC4899",
+    reactorPreset: {
+      dotColor: "#FDF2F8",
+      accentColor: "#EC4899",
+      speed: 70,
+      density: 320,
+      dotSize: 120,
+      spinTurns: 2,
+      spread: 110,
+    },
+    impactHighlight: "Estudo contínuo de código seguro, mitigação de vulnerabilidades e escalabilidade de software."
+  }
+];
