@@ -3,6 +3,8 @@
 import React, { useEffect } from "react";
 import { startNexusOS } from "@/main.js";
 import { EngineeringCoreSection } from "@/components/modules/engineering-core/EngineeringCoreSection";
+import { MissionsSection } from "@/components/modules/missions/MissionsSection";
+import { VaultSection } from "@/components/modules/vault/VaultSection";
 
 export default function HomePage() {
   useEffect(() => {
@@ -322,32 +324,24 @@ export default function HomePage() {
           <div className="container">
             <div className="section-hdr">
               <div className="section-hdr-icon">
-                <svg viewBox="0 0 24 24">
-                  <circle cx="12" cy="12" r="10" />
-                  <polyline points="12 6 12 12 16 14" />
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M22 10v6M2 10l10-5 10 5-10 5z" />
+                  <path d="M6 12v5c3 3 9 3 12 0v-5" />
                 </svg>
               </div>
               <div className="section-hdr-text">
                 <h2>MISSION LOG</h2>
-                <div className="section-code">// M-LOG // CHRONOLOGICAL TACTICAL RECORDS</div>
+                <div className="section-code">// M-LOG // JORNADA, GRADUAÇÕES & FORMAÇÃO TECH</div>
               </div>
             </div>
 
-            <div className="mission-layout">
-              <div className="mission-filters" id="mission-filters">
-                <button className="mission-filter-btn active" data-filter="all">
-                  ALL MISSIONS
-                </button>
-                <button className="mission-filter-btn" data-filter="active">
-                  ACTIVE OPERATIONS
-                </button>
-                <button className="mission-filter-btn" data-filter="completed">
-                  CONCLUDED
-                </button>
-              </div>
-
-              <div className="mission-track" id="mission-timeline-track"></div>
-            </div>
+            <MissionsSection
+              onUnlockAchievement={(achId) => {
+                if (typeof window !== "undefined" && (window as unknown as { unlockAchievement?: (id: string) => void }).unlockAchievement) {
+                  (window as unknown as { unlockAchievement: (id: string) => void }).unlockAchievement(achId);
+                }
+              }}
+            />
           </div>
         </section>
 
@@ -356,21 +350,24 @@ export default function HomePage() {
           <div className="container">
             <div className="section-hdr">
               <div className="section-hdr-icon">
-                <svg viewBox="0 0 24 24">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
                   <path d="M7 11V7a5 5 0 0 1 10 0v4" />
                 </svg>
               </div>
               <div className="section-hdr-text">
                 <h2>PROJECT VAULT</h2>
-                <div className="section-code">// P-VLT // DEPLOYED SYSTEMS & ARCHITECTURES</div>
+                <div className="section-code">// P-VLT // REPOSITÓRIOS GITHUB & SISTEMAS DEPLOYADOS</div>
               </div>
             </div>
 
-            <div className="vault-layout">
-              <div className="vault-filters" id="vault-filters"></div>
-              <div className="vault-grid" id="vault-grid"></div>
-            </div>
+            <VaultSection
+              onUnlockAchievement={(achId) => {
+                if (typeof window !== "undefined" && (window as unknown as { unlockAchievement?: (id: string) => void }).unlockAchievement) {
+                  (window as unknown as { unlockAchievement: (id: string) => void }).unlockAchievement(achId);
+                }
+              }}
+            />
           </div>
         </section>
 
@@ -379,24 +376,24 @@ export default function HomePage() {
           <div className="container">
             <div className="section-hdr">
               <div className="section-hdr-icon">
-                <svg viewBox="0 0 24 24">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <polygon points="12 15 8.5 17.5 9.5 13.5 6.5 10.5 10.5 10 12 6.5 13.5 10 17.5 10.5 14.5 13.5 15.5 17.5 12 15" />
                 </svg>
               </div>
               <div className="section-hdr-text">
                 <h2>KNOWLEDGE HUB</h2>
-                <div className="section-code">// K-HUB // VERIFIED CREDENTIALS & VISITOR BADGES</div>
+                <div className="section-code">// K-HUB // CERTIFICAÇÕES PROFISSIONAIS & CONQUISTAS</div>
               </div>
             </div>
 
             <div className="hub-layout">
               <div>
-                <div className="hub-section-title">🎓 Verified Professional Credentials</div>
+                <div className="hub-section-title">Certificações Profissionais Verificadas</div>
                 <div className="hub-cert-grid" id="hub-certs-grid"></div>
               </div>
 
               <div style={{ marginTop: "var(--sp-2xl)" }}>
-                <div className="hub-section-title">🎮 Visitor Authorization Badges (Gamified)</div>
+                <div className="hub-section-title">Medalhas de Conquista (Gamificado)</div>
                 <div className="hub-ach-grid" id="hub-achievements-grid"></div>
               </div>
             </div>

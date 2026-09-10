@@ -1665,6 +1665,7 @@ function initProjectVault() {
   ];
 
   const filtersEl = document.getElementById('vault-filters');
+  if (!filtersEl) return;
   filters.forEach(f => {
     const btn = document.createElement('button');
     btn.className = `vault-filter-btn ${f.id === 'all' ? 'active' : ''}`;
@@ -1680,10 +1681,14 @@ function initProjectVault() {
   renderVaultGrid('all');
 
   // Modal Close Listeners
-  document.getElementById('vault-modal-close').addEventListener('click', closeVaultModal);
-  document.getElementById('vault-modal-overlay').addEventListener('click', (e) => {
-    if (e.target.id === 'vault-modal-overlay') closeVaultModal();
-  });
+  const closeBtn = document.getElementById('vault-modal-close');
+  if (closeBtn) closeBtn.addEventListener('click', closeVaultModal);
+  const overlay = document.getElementById('vault-modal-overlay');
+  if (overlay) {
+    overlay.addEventListener('click', (e) => {
+      if (e.target.id === 'vault-modal-overlay') closeVaultModal();
+    });
+  }
 }
 
 function renderVaultGrid(catId) {

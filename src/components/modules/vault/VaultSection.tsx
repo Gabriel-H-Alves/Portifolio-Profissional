@@ -1,252 +1,549 @@
 "use client";
 
-import React, { useState } from "react";
-import { projects } from "@/data/projects";
+import React, { useState, useEffect, useMemo } from "react";
 import { ProjectItem } from "@/types/projects.types";
+import { fetchGitHubProjects } from "@/services/github.service";
 import { 
   FolderGit2, 
   ExternalLink, 
   GitBranch, 
   Maximize2, 
   X, 
-  AlertCircle, 
-  CheckCircle2, 
-  TrendingUp,
-  Cpu
+  Star, 
+  GitFork, 
+  RefreshCw, 
+  Search, 
+  Terminal, 
+  Copy, 
+  Check, 
+  Code2, 
+  Clock, 
+  HardDrive,
+  Coffee,
+  Bot,
+  Layers,
+  Sparkles,
+  BookOpen,
+  Target,
+  Cpu,
+  CheckCircle2,
+  Globe
 } from "lucide-react";
 
 interface VaultSectionProps {
-  onUnlockAchievement: (id: string) => void;
+  onUnlockAchievement?: (id: string) => void;
+}
+
+function renderProjectIcon(category: string, tech: string[] = []) {
+  const techJoined = tech.join(" ").toLowerCase();
+
+  if (category === "python" || techJoined.includes("python")) {
+    return <Terminal size={20} color="var(--hq-cyan)" />;
+  }
+  if (category === "java" || techJoined.includes("java")) {
+    return <Coffee size={20} color="var(--ml-amber)" />;
+  }
+  if (category === "automation" || techJoined.includes("uipath") || techJoined.includes("rpa")) {
+    return <Bot size={20} color="var(--tm-green)" />;
+  }
+  if (category === "web" || techJoined.includes("react") || techJoined.includes("next")) {
+    return <Layers size={20} color="var(--pv-violet)" />;
+  }
+  return <Code2 size={20} color="var(--pv-violet)" />;
 }
 
 export function VaultSection({ onUnlockAchievement }: VaultSectionProps) {
-  const [filter, setFilter] = useState<string>("all");
+  const [projectsList, setProjectsList] = useState<ProjectItem[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [isRefreshing, setIsRefreshing] = useState<boolean>(false);
+  const [syncSource, setSyncSource] = useState<"live" | "fallback">("live");
+  const [lastSyncTime, setLastSyncTime] = useState<string>("");
+  
+  const [activeFilter, setActiveFilter] = useState<string>("all");
+  const [searchQuery, setSearchQuery] = useState<string>("");
   const [selectedProject, setSelectedProject] = useState<ProjectItem | null>(null);
+  const [copiedClone, setCopiedClone] = useState<boolean>(false);
 
-  const filteredProjects = projects.filter((p) => {
-    if (filter === "all") return true;
-    return p.category === filter;
-  });
+  const loadProjects = async (forceRefresh: boolean = false) => {
+    if (forceRefresh) setIsRefreshing(true);
+    else setIsLoading(true);
+
+    try {
+      const data = await fetchGitHubProjects();
+      setProjectsList(data.projects);
+      setSyncSource(data.source);
+      setLastSyncTime(new Date().toLocaleTimeString("pt-BR", { hour: "2-digit", minute: "2-digit" }));
+    } catch (err) {
+      console.error("Erro ao carregar projetos:", err);
+    } finally {
+      setIsLoading(false);
+      setIsRefreshing(false);
+    }
+  };
+
+  useEffect(() => {
+    loadProjects();
+  }, []);
+
+  const formatRelativeTime = (dateStr?: string) => {
+    if (!dateStr) return "Recente";
+    try {
+      const date = new Date(dateStr);
+      const now = new Date();
+      const diffMs = now.getTime() - date.getTime();
+      const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+      
+      if (diffDays <= 0) return "Hoje";
+      if (diffDays === 1) return "Ontem";
+      if (diffDays < 30) return `Há ${diffDays} dias`;
+      if (diffDays < 365) return `Há ${Math.floor(diffDays / 30)} meses`;
+      return `Há ${Math.floor(diffDays / 365)} anos`;
+    } catch {
+      return "Sincronizado";
+    }
+  };
+
+  const isRecentlyUpdated = (dateStr?: string) => {
+    if (!dateStr) return false;
+    try {
+      const date = new Date(dateStr);
+      const diffMs = new Date().getTime() - date.getTime();
+      return diffMs < 1000 * 60 * 60 * 24 * 60;
+    } catch {
+      return false;
+    }
+  };
+
+  const filteredProjects = useMemo(() => {
+    return projectsList.filter((p) => {
+      const matchesFilter =
+        activeFilter === "all" ||
+        p.category === activeFilter ||
+        (activeFilter === "python" && p.tech.some(t => t.toLowerCase().includes("python"))) ||
+        (activeFilter === "java" && p.tech.some(t => t.toLowerCase().includes("java"))) ||
+        (activeFilter === "automation" && (p.category === "automation" || p.tech.some(t => t.toLowerCase().includes("uipath") || t.toLowerCase().includes("rpa")))) ||
+        (activeFilter === "web" && (p.category === "web" || p.tech.some(t => t.toLowerCase().includes("react") || t.toLowerCase().includes("typescript") || t.toLowerCase().includes("javascript"))));
+
+      const query = searchQuery.toLowerCase().trim();
+      const matchesSearch =
+        !query ||
+        p.name.toLowerCase().includes(query) ||
+        p.desc.toLowerCase().includes(query) ||
+        p.tech.some((t) => t.toLowerCase().includes(query)) ||
+        p.spec.toLowerCase().includes(query);
+
+      return matchesFilter && matchesSearch;
+    });
+  }, [projectsList, activeFilter, searchQuery]);
+
+  const counts = useMemo(() => {
+    return {
+      all: projectsList.length,
+      python: projectsList.filter(p => p.category === "python" || p.tech.some(t => t.toLowerCase().includes("python"))).length,
+      automation: projectsList.filter(p => p.category === "automation" || p.tech.some(t => t.toLowerCase().includes("uipath") || t.toLowerCase().includes("rpa"))).length,
+      web: projectsList.filter(p => p.category === "web" || p.tech.some(t => t.toLowerCase().includes("react") || t.toLowerCase().includes("typescript") || t.toLowerCase().includes("javascript"))).length,
+      java: projectsList.filter(p => p.category === "java" || p.tech.some(t => t.toLowerCase().includes("java"))).length,
+    };
+  }, [projectsList]);
+
+  const totalStars = useMemo(() => {
+    return projectsList.reduce((acc, curr) => acc + (curr.stars || 0), 0);
+  }, [projectsList]);
 
   const handleOpenProject = (project: ProjectItem) => {
     setSelectedProject(project);
-    onUnlockAchievement("deep_diver");
+    if (onUnlockAchievement) {
+      onUnlockAchievement("deep_diver");
+    }
+  };
+
+  const handleCopyClone = (url?: string) => {
+    if (!url) return;
+    navigator.clipboard.writeText(`git clone ${url}`);
+    setCopiedClone(true);
+    setTimeout(() => setCopiedClone(false), 2500);
   };
 
   return (
-    <section className="py-8 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto font-mono">
+    <div className="vault-integrated-layout">
       
-      {/* Section Header */}
-      <div className="flex flex-wrap items-center justify-between gap-4 mb-8 border-b border-border/60 pb-4">
-        <div className="flex items-center gap-3">
-          <div className="w-9 h-9 rounded-lg bg-cyber-violet/15 border border-cyber-violet-dim flex items-center justify-center text-cyber-violet shadow-[0_0_12px_rgba(139,92,246,0.25)]">
-            <FolderGit2 className="w-5 h-5" />
+      {/* ═══ BARRA DE CONTROLE & STATUS DO GITHUB ═══ */}
+      <div className="vault-toolbar-bar">
+        
+        {/* Status Strip */}
+        <div className="vault-status-strip">
+          <div className="vault-tele-chip">
+            <span className="vault-live-dot-wrap">
+              <span className="vault-live-dot-ping"></span>
+              <span className="vault-live-dot"></span>
+            </span>
+            <span>GitHub: <strong>{syncSource === "live" ? "Conectado" : "Offline"}</strong></span>
+            {lastSyncTime && (
+              <span style={{ opacity: 0.6, borderLeft: "1px solid rgba(228,228,240,0.15)", paddingLeft: "6px" }}>
+                {lastSyncTime}
+              </span>
+            )}
           </div>
-          <div>
-            <h2 className="font-display text-xl sm:text-2xl font-bold tracking-wider text-starlight">
-              PROJECT VAULT
-            </h2>
-            <div className="text-[11px] text-asteroid tracking-widest uppercase">
-              // P-VLT // SISTEMAS DEPLOYADOS & ARQUITETURAS DE ENGENHARIA
-            </div>
+
+          <div className="vault-tele-chip">
+            <Code2 size={13} color="var(--pv-violet)" />
+            <span><strong>{projectsList.length}</strong> Repositórios</span>
           </div>
+
+          <div className="vault-tele-chip">
+            <Star size={13} color="var(--ml-amber)" fill="rgba(255,184,0,0.3)" />
+            <span><strong>{totalStars}</strong> Stars</span>
+          </div>
+
+          <button
+            onClick={() => loadProjects(true)}
+            disabled={isRefreshing || isLoading}
+            className="vault-sync-btn-compact"
+            title="Sincronizar com GitHub"
+          >
+            <RefreshCw size={12} className={isRefreshing ? "animate-spin" : ""} />
+            <span>{isRefreshing ? "Atualizando..." : "Atualizar"}</span>
+          </button>
         </div>
 
-        {/* Filters */}
-        <div className="flex flex-wrap gap-2">
-          <button
-            onClick={() => setFilter("all")}
-            className={`px-3 py-1.5 rounded text-xs font-bold transition-all ${
-              filter === "all"
-                ? "bg-cyber-violet/20 text-cyber-violet border border-cyber-violet-dim"
-                : "border border-border text-asteroid hover:text-starlight"
-            }`}
-          >
-            TODOS OS PROJETOS
-          </button>
-          <button
-            onClick={() => setFilter("ai")}
-            className={`px-3 py-1.5 rounded text-xs font-bold transition-all ${
-              filter === "ai"
-                ? "bg-cyber-violet/20 text-cyber-violet border border-cyber-violet-dim"
-                : "border border-border text-asteroid hover:text-starlight"
-            }`}
-          >
-            IA & NEURAL
-          </button>
-          <button
-            onClick={() => setFilter("automation")}
-            className={`px-3 py-1.5 rounded text-xs font-bold transition-all ${
-              filter === "automation"
-                ? "bg-cyber-violet/20 text-cyber-violet border border-cyber-violet-dim"
-                : "border border-border text-asteroid hover:text-starlight"
-            }`}
-          >
-            ROBÓTICA & IOT
-          </button>
-          <button
-            onClick={() => setFilter("web")}
-            className={`px-3 py-1.5 rounded text-xs font-bold transition-all ${
-              filter === "web"
-                ? "bg-cyber-violet/20 text-cyber-violet border border-cyber-violet-dim"
-                : "border border-border text-asteroid hover:text-starlight"
-            }`}
-          >
-            WEB & PLATAFORMAS
-          </button>
-        </div>
-      </div>
-
-      {/* Projects Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {filteredProjects.map((project) => (
-          <div
-            key={project.id}
-            className="group p-5 rounded-2xl border border-border/80 bg-space-void/90 hover:border-cyber-violet-dim hover:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between shadow-xl"
-          >
-            <div>
-              {/* Card Bar */}
-              <div className="flex items-center justify-between border-b border-border/50 pb-2.5 mb-3 text-[10px] text-asteroid">
-                <span className="text-cyber-violet font-bold">{project.id}</span>
-                <span>{project.spec}</span>
-              </div>
-
-              {/* Title & Icon */}
-              <div className="flex items-start gap-3 mb-2.5">
-                <span className="text-2xl">{project.icon}</span>
-                <h3 className="font-heading text-lg font-bold text-starlight leading-snug group-hover:text-cyber-violet transition-colors">
-                  {project.name}
-                </h3>
-              </div>
-
-              {/* Short Description */}
-              <p className="text-xs text-asteroid leading-relaxed mb-4">
-                {project.desc}
-              </p>
+        {/* Search & Filter Tabs */}
+        <div className="vault-search-filter-row">
+          
+          {/* Search */}
+          <div className="vault-search-box">
+            <div className="vault-search-icon">
+              <Search size={14} />
             </div>
-
-            <div>
-              {/* Tech Chips */}
-              <div className="flex flex-wrap gap-1.5 mb-4">
-                {project.tech.map((t, idx) => (
-                  <span
-                    key={idx}
-                    className="px-2 py-0.5 rounded border border-border/60 bg-white/[0.02] text-[10px] text-asteroid"
-                  >
-                    {t}
-                  </span>
-                ))}
-              </div>
-
-              {/* Action Button */}
+            <input
+              type="text"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              placeholder="Buscar por nome, tecnologia ou assunto..."
+              className="vault-search-input"
+            />
+            {searchQuery && (
               <button
-                onClick={() => handleOpenProject(project)}
-                className="w-full flex items-center justify-center gap-2 py-2 rounded-lg border border-cyber-violet-dim bg-cyber-violet/10 hover:bg-cyber-violet hover:text-space-deep text-cyber-violet text-xs font-bold transition-all shadow-[0_0_10px_rgba(139,92,246,0.15)]"
+                onClick={() => setSearchQuery("")}
+                className="vault-search-clear"
+                title="Limpar busca"
               >
-                <Maximize2 className="w-3.5 h-3.5" />
-                <span>INSPECIONAR ARQUITETURA</span>
+                ✕
               </button>
-            </div>
+            )}
           </div>
-        ))}
+
+          {/* Filters */}
+          <div className="vault-filters-group">
+            {[
+              { id: "all", label: "Todos", icon: <FolderGit2 size={12} />, count: counts.all },
+              { id: "python", label: "Python & IA", icon: <Terminal size={12} />, count: counts.python },
+              { id: "automation", label: "Robótica & RPA", icon: <Bot size={12} />, count: counts.automation },
+              { id: "web", label: "Web & React", icon: <Layers size={12} />, count: counts.web },
+              { id: "java", label: "Java & Backend", icon: <Coffee size={12} />, count: counts.java },
+            ].map((tab) => (
+              <button
+                key={tab.id}
+                onClick={() => setActiveFilter(tab.id)}
+                className={`vault-filter-tab ${activeFilter === tab.id ? "active" : ""}`}
+              >
+                {tab.icon}
+                <span>{tab.label}</span>
+                <span className="vault-filter-tab-count">{tab.count}</span>
+              </button>
+            ))}
+          </div>
+        </div>
+
       </div>
 
-      {/* Deep Inspection Modal (Dialog) */}
-      {selectedProject && (
-        <div className="fixed inset-0 z-[90] flex items-center justify-center p-4 bg-space-deep/80 backdrop-blur-md animate-in fade-in duration-200">
-          <div 
-            className="fixed inset-0" 
-            onClick={() => setSelectedProject(null)} 
-            aria-hidden="true" 
-          />
+      {/* ═══ GRADE DE PROJETOS ═══ */}
+      {isLoading ? (
+        <div className="vault-grid">
+          {[1, 2, 3, 4, 5, 6].map((idx) => (
+            <div key={idx} className="vault-card-skeleton"></div>
+          ))}
+        </div>
+      ) : filteredProjects.length === 0 ? (
+        <div style={{ textAlign: "center", padding: "4rem 1rem", border: "1px dashed rgba(228,228,240,0.12)", borderRadius: "var(--radius-lg)" }}>
+          <Code2 size={36} color="var(--asteroid)" style={{ marginBottom: "0.8rem", opacity: 0.6 }} />
+          <h3 style={{ fontFamily: "var(--font-heading)", fontSize: "1.1rem", color: "var(--starlight)", margin: "0 0 0.4rem 0" }}>
+            Nenhum projeto encontrado
+          </h3>
+          <p style={{ fontSize: "12px", color: "var(--asteroid)", marginBottom: "1.2rem" }}>
+            Tente buscar por outro termo ou limpar os filtros ativos.
+          </p>
+          <button
+            onClick={() => {
+              setActiveFilter("all");
+              setSearchQuery("");
+            }}
+            className="btn btn-outline"
+          >
+            Limpar Filtros
+          </button>
+        </div>
+      ) : (
+        <div className="vault-grid">
+          {filteredProjects.map((project) => {
+            const isRecent = isRecentlyUpdated(project.updatedAt);
 
-          <div className="relative w-full max-w-2xl rounded-2xl border border-cyber-violet-dim bg-space-void shadow-[0_20px_60px_rgba(0,0,0,0.9),0_0_30px_rgba(139,92,246,0.25)] p-6 sm:p-8 z-10 max-h-[90vh] overflow-y-auto font-mono space-y-5 animate-in zoom-in-95 duration-200">
-            
-            {/* Modal Header */}
-            <div className="flex items-start justify-between gap-4 border-b border-border/60 pb-4">
-              <div className="flex items-center gap-3">
-                <span className="text-3xl">{selectedProject.icon}</span>
+            return (
+              <div key={project.id} className="vault-card">
                 <div>
-                  <h3 className="font-display text-lg sm:text-xl font-bold text-starlight">
-                    {selectedProject.name}
-                  </h3>
-                  <div className="text-xs text-cyber-violet font-mono mt-0.5">
-                    {selectedProject.spec} • {selectedProject.id}
+                  {/* Top Bar */}
+                  <div className="vault-card-bar">
+                    <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
+                      <span className="vault-card-spec">{project.id}</span>
+                      {isRecent && (
+                        <span className="badge badge-green" style={{ fontSize: "9px", padding: "1px 6px" }}>
+                          <Sparkles size={9} />
+                          Recente
+                        </span>
+                      )}
+                    </div>
+
+                    <div style={{ display: "flex", alignItems: "center", gap: "4px", fontSize: "10px", color: "var(--asteroid)" }}>
+                      <GitBranch size={11} color="var(--pv-violet)" />
+                      <span>{project.defaultBranch || "main"}</span>
+                    </div>
+                  </div>
+
+                  {/* Body */}
+                  <div className="vault-card-body-content">
+                    <div style={{ display: "flex", alignItems: "flex-start", gap: "10px", marginBottom: "8px" }}>
+                      <div className="vault-card-icon-box">
+                        {renderProjectIcon(project.category, project.tech)}
+                      </div>
+                      <div style={{ flex: 1, minWidth: 0 }}>
+                        <h3 className="vault-card-title" title={project.name}>
+                          {project.name}
+                        </h3>
+                        <div style={{ fontSize: "10px", color: "var(--asteroid)", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
+                          {project.spec}
+                        </div>
+                      </div>
+                    </div>
+
+                    <p className="vault-card-desc">
+                      {project.desc}
+                    </p>
+
+                    <div className="vault-card-tags">
+                      {project.tech.slice(0, 4).map((tech, idx) => (
+                        <span key={idx} className="badge badge-violet" style={{ fontSize: "10px" }}>
+                          {tech}
+                        </span>
+                      ))}
+                      {project.tech.length > 4 && (
+                        <span className="badge" style={{ fontSize: "9px" }}>
+                          +{project.tech.length - 4}
+                        </span>
+                      )}
+                    </div>
+                  </div>
+                </div>
+
+                {/* Footer */}
+                <div>
+                  <div className="vault-card-meta-line">
+                    <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+                      <span style={{ display: "flex", alignItems: "center", gap: "3px" }} title="Estrelas">
+                        <Star size={11} color="var(--ml-amber)" fill="rgba(255,184,0,0.3)" />
+                        <span>{project.stars || 0}</span>
+                      </span>
+                      <span style={{ display: "flex", alignItems: "center", gap: "3px" }} title="Forks">
+                        <GitFork size={11} color="var(--pv-violet)" />
+                        <span>{project.forks || 0}</span>
+                      </span>
+                      {project.sizeKb && (
+                        <span style={{ display: "flex", alignItems: "center", gap: "3px", opacity: 0.7 }} title="Tamanho">
+                          <HardDrive size={10} />
+                          <span>{project.sizeKb > 1000 ? `${(project.sizeKb / 1024).toFixed(1)}MB` : `${project.sizeKb}KB`}</span>
+                        </span>
+                      )}
+                    </div>
+
+                    <span style={{ display: "flex", alignItems: "center", gap: "3px" }}>
+                      <Clock size={10} />
+                      <span>{formatRelativeTime(project.updatedAt)}</span>
+                    </span>
+                  </div>
+
+                  <div className="vault-card-footer">
+                    <button
+                      onClick={() => handleOpenProject(project)}
+                      className="btn btn-outline"
+                      style={{ flex: 1, justifyContent: "center", fontSize: "11px", padding: "6px 10px" }}
+                    >
+                      <Maximize2 size={12} />
+                      <span>Detalhes</span>
+                    </button>
+
+                    {project.links.code && (
+                      <a
+                        href={project.links.code}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="btn btn-ghost"
+                        style={{ padding: "6px 10px" }}
+                        title="Ver Código no GitHub"
+                      >
+                        <ExternalLink size={13} />
+                      </a>
+                    )}
+
+                    {project.links.demo && (
+                      <a
+                        href={project.links.demo}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="badge badge-green"
+                        style={{ padding: "6px 10px", fontWeight: 700, textDecoration: "none" }}
+                        title="Abrir Demo Online"
+                      >
+                        <Globe size={11} style={{ marginRight: "3px" }} />
+                        Demo
+                      </a>
+                    )}
                   </div>
                 </div>
               </div>
+            );
+          })}
+        </div>
+      )}
 
-              <button
-                onClick={() => setSelectedProject(null)}
-                className="p-1.5 rounded-lg border border-border text-asteroid hover:text-starlight hover:border-asteroid"
-                aria-label="Fechar modal de inspeção"
-              >
-                <X className="w-4 h-4" />
-              </button>
-            </div>
+      {/* ═══ MODAL DE DETALHES ═══ */}
+      {selectedProject && (
+        <div className="vault-modal-overlay open" onClick={() => setSelectedProject(null)}>
+          <div className="vault-modal-container" onClick={(e) => e.stopPropagation()}>
+            
+            <button
+              onClick={() => setSelectedProject(null)}
+              className="vault-modal-close"
+              title="Fechar"
+            >
+              <X size={15} />
+            </button>
 
-            {/* Deep Description */}
-            <div>
-              <div className="text-[11px] text-asteroid uppercase tracking-wider mb-1 font-bold">
-                // VISÃO GERAL DA ARQUITETURA
-              </div>
-              <p className="text-xs sm:text-sm text-starlight/90 leading-relaxed">
-                {selectedProject.fullDesc}
-              </p>
-            </div>
-
-            {/* Engineering Breakdown: Problem / Solution / Result */}
-            <div className="space-y-3 pt-2">
-              <div className="p-3.5 rounded-xl border border-border/60 bg-space-deep/60">
-                <div className="flex items-center gap-2 text-xs font-bold text-cyber-amber mb-1">
-                  <AlertCircle className="w-4 h-4" />
-                  <span>Desafio de Engenharia:</span>
+            <div className="vault-modal-content">
+              
+              <div className="vault-modal-header">
+                <div style={{ display: "flex", alignItems: "center", gap: "6px", marginBottom: "8px" }}>
+                  <span className="badge badge-violet">{selectedProject.spec}</span>
+                  <span className="badge badge-green">Concluído & Disponível</span>
                 </div>
-                <p className="text-xs text-starlight/80 leading-relaxed pl-6">
-                  {selectedProject.problem}
-                </p>
-              </div>
-
-              <div className="p-3.5 rounded-xl border border-border/60 bg-space-deep/60">
-                <div className="flex items-center gap-2 text-xs font-bold text-cyber-cyan mb-1">
-                  <Cpu className="w-4 h-4" />
-                  <span>Solução Arquitetural:</span>
+                <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+                  <div className="vault-card-icon-box" style={{ width: "36px", height: "36px" }}>
+                    {renderProjectIcon(selectedProject.category, selectedProject.tech)}
+                  </div>
+                  <h3 className="vault-modal-title">
+                    {selectedProject.name}
+                  </h3>
                 </div>
-                <p className="text-xs text-starlight/80 leading-relaxed pl-6">
-                  {selectedProject.solution}
-                </p>
               </div>
 
-              <div className="p-3.5 rounded-xl border border-border/60 bg-space-deep/60">
-                <div className="flex items-center gap-2 text-xs font-bold text-cyber-green mb-1">
-                  <TrendingUp className="w-4 h-4" />
-                  <span>Impacto & Resultados Mensuráveis:</span>
-                </div>
-                <p className="text-xs text-starlight/80 leading-relaxed pl-6">
-                  {selectedProject.result}
-                </p>
-              </div>
-            </div>
-
-            {/* Tech Stack */}
-            <div>
-              <div className="text-[11px] text-asteroid uppercase tracking-wider mb-2 font-bold">
-                // STACK TÉCNICO EMPREGADO
-              </div>
-              <div className="flex flex-wrap gap-2">
+              <div style={{ display: "flex", flexWrap: "wrap", gap: "4px", marginBottom: "1.2rem" }}>
                 {selectedProject.tech.map((t, idx) => (
-                  <span
-                    key={idx}
-                    className="px-2.5 py-1 rounded border border-cyber-violet/30 bg-cyber-violet/10 text-cyber-violet text-xs font-bold"
-                  >
+                  <span key={idx} className="badge badge-violet">
                     {t}
                   </span>
                 ))}
               </div>
+
+              <div className="vault-modal-section">
+                <h4>
+                  <BookOpen size={13} style={{ display: "inline", marginRight: "5px", verticalAlign: "middle" }} />
+                  // SOBRE O PROJETO
+                </h4>
+                <p>{selectedProject.fullDesc}</p>
+              </div>
+
+              <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: "var(--sp-md)", marginBottom: "var(--sp-md)" }}>
+                <div className="vault-modal-section" style={{ margin: 0 }}>
+                  <h4 style={{ color: "var(--ml-amber)" }}>
+                    <Target size={13} style={{ display: "inline", marginRight: "5px", verticalAlign: "middle" }} />
+                    // OBJETIVO & DESAFIO
+                  </h4>
+                  <p>{selectedProject.problem}</p>
+                </div>
+
+                <div className="vault-modal-section" style={{ margin: 0 }}>
+                  <h4>
+                    <Cpu size={13} style={{ display: "inline", marginRight: "5px", verticalAlign: "middle" }} />
+                    // SOLUÇÃO DESENVOLVIDA
+                  </h4>
+                  <p>{selectedProject.solution}</p>
+                </div>
+              </div>
+
+              <div className="vault-modal-section">
+                <h4 style={{ color: "var(--tm-green)" }}>
+                  <CheckCircle2 size={13} style={{ display: "inline", marginRight: "5px", verticalAlign: "middle" }} />
+                  // RESULTADOS & IMPACTO
+                </h4>
+                <p>{selectedProject.result}</p>
+              </div>
+
+              {selectedProject.cloneUrl && (
+                <div style={{ background: "rgba(5,5,12,0.8)", border: "1px solid var(--border-subtle)", borderRadius: "var(--radius-md)", padding: "10px 14px", marginTop: "1rem" }}>
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", fontSize: "10px", color: "var(--asteroid)", marginBottom: "6px" }}>
+                    <span>// CLONAR REPOSITÓRIO</span>
+                    {copiedClone && (
+                      <span style={{ color: "var(--tm-green)", fontWeight: 700, display: "flex", alignItems: "center", gap: "3px" }}>
+                        <Check size={11} /> Copiado!
+                      </span>
+                    )}
+                  </div>
+                  <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: "8px", background: "rgba(16,16,42,0.7)", borderRadius: "var(--radius-sm)", padding: "6px 10px" }}>
+                    <span style={{ fontFamily: "var(--font-mono)", fontSize: "11px", color: "var(--hq-cyan)", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+                      git clone {selectedProject.cloneUrl}
+                    </span>
+                    <button
+                      onClick={() => handleCopyClone(selectedProject.cloneUrl)}
+                      className="btn btn-ghost"
+                      style={{ padding: "3px 6px", fontSize: "10px" }}
+                      title="Copiar comando"
+                    >
+                      {copiedClone ? <Check size={12} /> : <Copy size={12} />}
+                    </button>
+                  </div>
+                </div>
+              )}
+
+              <div className="vault-modal-actions">
+                {selectedProject.links.code && (
+                  <a
+                    href={selectedProject.links.code}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="btn btn-primary"
+                    style={{ flex: 1, justifyContent: "center" }}
+                  >
+                    <Code2 size={14} />
+                    <span>Ver no GitHub</span>
+                  </a>
+                )}
+
+                {selectedProject.links.demo && (
+                  <a
+                    href={selectedProject.links.demo}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="btn btn-outline"
+                    style={{ flex: 1, justifyContent: "center" }}
+                  >
+                    <Globe size={14} />
+                    <span>Acessar Demo</span>
+                  </a>
+                )}
+              </div>
+
             </div>
           </div>
         </div>
       )}
-    </section>
+
+    </div>
   );
 }

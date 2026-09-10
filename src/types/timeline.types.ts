@@ -7,12 +7,15 @@ export interface MissionLogItem {
   id: string;
   code: string;
   status: 'active' | 'completed';
-  classification: 'CONFIDENTIAL' | 'PUBLIC';
+  type: 'education' | 'experience' | 'course';
   role: string;
   company: string;
+  startDate: string; // YYYY-MM
+  endDate: string;   // YYYY-MM
   timeframe: string;
   duration: string;
   briefing: string;
   stack: string[];
   intel: MissionIntel[];
+  progressPct?: number;
 }

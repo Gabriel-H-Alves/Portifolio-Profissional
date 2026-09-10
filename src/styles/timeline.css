@@ -1,32 +1,45 @@
 /* ═══════════════════════════════════════════════════════
    MISSION LOG — M-LOG // Tactical Amber (#FFB800)
+   Aligned with Nexus OS Global Design System
    ═══════════════════════════════════════════════════════ */
 
-.mission-layout {
+.mission-integrated-layout {
   position: relative;
-  max-width: 900px;
+  width: 100%;
+  max-width: 960px;
   margin: 0 auto;
 }
 
 /* ─── Classification Filter ─── */
+.mission-filters-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--sp-xl);
+  flex-wrap: wrap;
+  gap: var(--sp-md);
+}
+
 .mission-filters {
   display: flex;
   gap: var(--sp-xs);
-  margin-bottom: var(--sp-2xl);
   flex-wrap: wrap;
 }
 
 .mission-filter-btn {
+  display: flex;
+  align-items: center;
+  gap: 5px;
   padding: 6px 14px;
   font-family: var(--font-mono);
   font-size: var(--text-xs);
   color: var(--asteroid);
   border: var(--border-subtle);
   border-radius: var(--radius-sm);
+  background: transparent;
   cursor: pointer;
   transition: all var(--dur-fast);
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+  letter-spacing: 0.04em;
 }
 
 .mission-filter-btn:hover {
@@ -40,42 +53,60 @@
   background: var(--ml-amber-glow);
 }
 
+.mission-filter-count {
+  font-size: 9px;
+  padding: 1px 6px;
+  border-radius: var(--radius-full);
+  background: rgba(255, 255, 255, 0.06);
+  margin-left: 4px;
+}
+
+.mission-filter-btn.active .mission-filter-count {
+  background: var(--ml-amber);
+  color: var(--deep-space);
+  font-weight: 700;
+}
+
 /* ─── Mission Timeline Track ─── */
 .mission-track {
   position: relative;
-  padding-left: 50px;
+  padding-left: 36px;
+}
+
+@media (min-width: 640px) {
+  .mission-track {
+    padding-left: 44px;
+  }
 }
 
 .mission-track::before {
   content: '';
   position: absolute;
-  top: 0;
-  left: 18px;
+  top: 6px;
+  left: 10px;
   width: 2px;
   height: 100%;
-  background: linear-gradient(180deg, var(--ml-amber), var(--nebula-light) 80%, transparent);
+  background: linear-gradient(180deg, var(--ml-amber), var(--nebula-light) 85%, transparent);
+}
+
+@media (min-width: 640px) {
+  .mission-track::before {
+    left: 14px;
+  }
 }
 
 .mission-entry {
   position: relative;
-  padding-bottom: var(--sp-3xl);
-  opacity: 0;
-  transform: translateY(20px);
-  transition: all var(--dur-slow) var(--ease-out);
-}
-
-.mission-entry.visible {
-  opacity: 1;
-  transform: translateY(0);
+  padding-bottom: var(--sp-2xl);
 }
 
 /* Beacon Dot */
 .mission-beacon {
   position: absolute;
-  left: -40px;
-  top: 6px;
-  width: 20px;
-  height: 20px;
+  left: -32px;
+  top: 8px;
+  width: 18px;
+  height: 18px;
   border-radius: 50%;
   border: 2px solid var(--ml-amber);
   background: var(--deep-space);
@@ -86,21 +117,27 @@
   transition: all var(--dur-base);
 }
 
+@media (min-width: 640px) {
+  .mission-beacon {
+    left: -38px;
+  }
+}
+
 .mission-beacon-inner {
-  width: 8px;
-  height: 8px;
+  width: 6px;
+  height: 6px;
   border-radius: 50%;
   background: var(--ml-amber);
+}
+
+.mission-beacon-inner.beacon-active {
+  background: var(--tm-green);
+  box-shadow: 0 0 8px var(--tm-green);
 }
 
 .mission-entry:hover .mission-beacon {
   box-shadow: 0 0 16px var(--ml-amber);
   transform: scale(1.15);
-}
-
-.mission-beacon.active {
-  animation: statusPulse 2s infinite;
-  box-shadow: 0 0 12px var(--ml-amber);
 }
 
 /* Mission Card */
@@ -109,153 +146,124 @@
   border: var(--border-subtle);
   border-radius: var(--radius-lg);
   overflow: hidden;
+  box-shadow: var(--shadow-sm);
   transition: all var(--dur-base) var(--ease-smooth);
-  position: relative;
 }
 
 .mission-card:hover {
   border-color: var(--ml-amber-dim);
-  transform: translateX(6px);
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4), 0 0 20px var(--ml-amber-glow);
+  transform: translateY(-4px);
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.5), 0 0 25px var(--ml-amber-glow);
 }
 
 .mission-card-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: var(--sp-md) var(--sp-lg);
-  background: rgba(255, 184, 0, 0.03);
+  padding: var(--sp-sm) var(--sp-md);
+  background: rgba(255, 184, 0, 0.04);
   border-bottom: var(--border-dim);
-  flex-wrap: wrap;
-  gap: var(--sp-sm);
-}
-
-.mission-id {
-  font-family: var(--font-mono);
-  font-size: var(--text-xs);
-  color: var(--ml-amber);
-  letter-spacing: 0.12em;
-  font-weight: 700;
-  display: flex;
-  align-items: center;
-  gap: var(--sp-sm);
-}
-
-.mission-badge {
-  font-family: var(--font-mono);
-  font-size: 9px;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  padding: 2px 8px;
-  border-radius: var(--radius-full);
-  font-weight: 700;
-}
-
-.mission-badge.active {
-  color: var(--ml-amber);
-  border: 1px solid var(--ml-amber-dim);
-  background: var(--ml-amber-glow);
-  animation: borderGlow 2s infinite;
-}
-
-.mission-badge.completed {
-  color: var(--success);
-  border: 1px solid rgba(0, 255, 136, 0.3);
-  background: rgba(0, 255, 136, 0.08);
-}
-
-.mission-badge.classified {
-  color: var(--error);
-  border: 1px solid rgba(255, 51, 102, 0.3);
-  background: rgba(255, 51, 102, 0.08);
 }
 
 .mission-card-body {
   padding: var(--sp-lg);
 }
 
-.mission-role {
+.mission-card-role {
   font-family: var(--font-heading);
   font-size: var(--text-lg);
-  font-weight: 600;
+  font-weight: 700;
   color: var(--starlight);
   letter-spacing: 0.02em;
+  margin: 0 0 4px 0;
+  line-height: 1.25;
 }
 
-.mission-org {
-  font-family: var(--font-mono);
-  font-size: var(--text-xs);
-  color: var(--ml-amber);
-  margin-top: 2px;
-  letter-spacing: 0.05em;
-}
-
-.mission-timeframe {
-  font-family: var(--font-mono);
-  font-size: var(--text-xs);
-  color: var(--asteroid);
-  margin-top: var(--sp-xs);
+.mission-card-company {
   display: flex;
-  gap: var(--sp-md);
-}
-
-.mission-briefing {
-  font-size: var(--text-sm);
-  color: var(--asteroid);
-  line-height: 1.7;
-  margin-top: var(--sp-md);
-}
-
-.mission-stack {
-  display: flex;
+  align-items: center;
   flex-wrap: wrap;
   gap: 6px;
-  margin-top: var(--sp-md);
+  font-size: var(--text-xs);
+  color: var(--asteroid);
+  margin-bottom: var(--sp-md);
 }
 
-.mission-intel-grid {
+/* Progress Box */
+.mission-progress-box {
+  background: var(--nebula);
+  border: 1px solid var(--border-dim);
+  border-radius: var(--radius-sm);
+  padding: 8px 12px;
+  margin-bottom: var(--sp-md);
+}
+
+.mission-progress-label-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 11px;
+  color: var(--asteroid);
+  margin-bottom: 5px;
+}
+
+.mission-progress-label-row strong {
+  color: var(--starlight);
+}
+
+.mission-progress-track {
+  height: 4px;
+  background: var(--nebula-light);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+}
+
+.mission-progress-fill {
+  height: 100%;
+  border-radius: var(--radius-full);
+  transition: width 1s var(--ease-out);
+}
+
+.mission-card-briefing {
+  font-size: var(--text-xs);
+  color: rgba(228, 228, 240, 0.85);
+  line-height: 1.65;
+  margin-bottom: var(--sp-md);
+}
+
+/* Intel Grid */
+.mission-card-intel {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  grid-template-columns: repeat(3, 1fr);
   gap: var(--sp-sm);
-  margin-top: var(--sp-lg);
-  padding-top: var(--sp-md);
-  border-top: var(--border-dim);
+  padding: var(--sp-sm);
+  background: rgba(10, 10, 20, 0.6);
+  border: 1px solid var(--border-dim);
+  border-radius: var(--radius-sm);
+  margin-bottom: var(--sp-md);
 }
 
 .mission-intel-item {
   text-align: center;
-  padding: var(--sp-xs) var(--sp-sm);
-  background: rgba(10, 10, 20, 0.6);
-  border-radius: var(--radius-sm);
-  border: var(--border-dim);
 }
 
 .mission-intel-val {
-  font-family: var(--font-display);
-  font-size: var(--text-base);
+  font-family: var(--font-heading);
+  font-size: var(--text-md);
   font-weight: 700;
   color: var(--ml-amber);
 }
 
 .mission-intel-lbl {
-  font-family: var(--font-mono);
   font-size: 9px;
   color: var(--asteroid);
-  letter-spacing: 0.08em;
   text-transform: uppercase;
-  margin-top: 2px;
+  letter-spacing: 0.04em;
+  margin-top: 1px;
 }
 
-@media (max-width: 768px) {
-  .mission-track {
-    padding-left: 36px;
-  }
-  .mission-track::before {
-    left: 12px;
-  }
-  .mission-beacon {
-    left: -30px;
-    width: 16px;
-    height: 16px;
-  }
+.mission-card-stack {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
 }
