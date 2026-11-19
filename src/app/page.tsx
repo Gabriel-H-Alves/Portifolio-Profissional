@@ -111,7 +111,7 @@ export default function HomePage() {
               SYS.LON: <span className="hud-val" id="hud-lon">-46.6333</span>
             </div>
             <div className="hud-line">
-              SYS.CLEARANCE: <span>ALPHA // LEVEL 5</span>
+              SYS.CLEARANCE: <span>---</span>
             </div>
           </div>
 
@@ -144,7 +144,7 @@ export default function HomePage() {
           {/* Quick Metrics */}
           <div className="hq-stats">
             <div className="stat">
-              <div className="stat-val" data-count="5">
+              <div className="stat-val" data-count="0">
                 0
               </div>
               <div className="stat-lbl">Years Experience</div>
