@@ -125,7 +125,7 @@ export default function HomePage() {
           </div>
 
           <div className="hq-hero">
-            <div className="hq-greeting">// WELCOME TO THE AI CAREER COMMAND CENTER</div>
+            <div className="hq-greeting"></div>
             <h1 className="hq-name">GABRIEL HENRIQUE</h1>
             <div className="hq-title" id="hq-title-typewriter">
               <span id="typewriter-text"></span>
@@ -145,7 +145,7 @@ export default function HomePage() {
           <div className="hq-stats">
             <div className="stat">
               <div className="stat-val" data-count="0">
-                0
+                
               </div>
               <div className="stat-lbl">Years Experience</div>
             </div>
